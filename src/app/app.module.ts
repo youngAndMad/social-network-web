@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http'
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { OAuthModule } from "angular-oauth2-oidc";
+import { ApiInterceptor } from './common/interceptor/api.interceptor';
+import { QrModule } from './features/qr/qr.module';
 
 @NgModule({
   declarations: [
@@ -13,13 +14,15 @@ import { OAuthModule } from "angular-oauth2-oidc";
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    OAuthModule.forRoot(
-      {resourceServer: {
-        sendAccessToken: true,
-      },}
-    )
+    QrModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ApiInterceptor,
+      multi: true,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
