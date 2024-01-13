@@ -9,7 +9,7 @@ export class QrService {
 
   constructor(private _http: HttpClient) { }
 
-  generateQr = (link:string) :Observable<any>{
-    return this._http.get('qr/generate', {params: {link}})
+  generateQr = (link: string): Observable<any> => {
+    return this._http.get('qr/generate', { params: { link }, responseType: 'blob' })
   }
 }
