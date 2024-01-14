@@ -9,6 +9,10 @@ import { ApiInterceptor } from './common/interceptor/api.interceptor';
 import { QrModule } from './features/qr/qr.module';
 import { NavbarComponent } from './shared/layout/navbar/navbar.component';
 import { FooterComponent } from './shared/layout/footer/footer.component';
+import { ReactiveFormsModule } from "@angular/forms";
+import { AuthModule } from "./features/auth/auth.module";
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,11 +23,13 @@ import { FooterComponent } from './shared/layout/footer/footer.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    ReactiveFormsModule,
     QrModule,
     BrowserAnimationsModule,
     TuiRootModule,
     TuiDialogModule,
-    TuiAlertModule
+    TuiAlertModule,
+    AuthModule
   ],
   providers: [
     {
