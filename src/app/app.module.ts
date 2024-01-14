@@ -8,10 +8,12 @@ import { AppComponent } from './app.component';
 import { ApiInterceptor } from './common/interceptor/api.interceptor';
 import { QrModule } from './features/qr/qr.module';
 import { NavbarComponent } from './shared/layout/navbar/navbar.component';
+import { FooterComponent } from './shared/layout/footer/footer.component';
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent
+    NavbarComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

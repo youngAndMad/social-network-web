@@ -1,0 +1,13 @@
+.content {
+    min-height: calc(100vh - 140px);
+}
+@media(max-width: 492px) {
+    .content {
+        min-height: calc(100vh - 320px);
+    }
+}
+@media(max-width: 492px) {
+    .content {
+        min-height: calc(100vh - 320px);
+    }
+}
