@@ -11,7 +11,7 @@ import { NavbarComponent } from './shared/layout/navbar/navbar.component';
 import { FooterComponent } from './shared/layout/footer/footer.component';
 import { ReactiveFormsModule } from "@angular/forms";
 import { AuthModule } from "./features/auth/auth.module";
-
+import { OAuthModule } from "angular-oauth2-oidc";
 
 @NgModule({
   declarations: [
@@ -29,7 +29,8 @@ import { AuthModule } from "./features/auth/auth.module";
     TuiRootModule,
     TuiDialogModule,
     TuiAlertModule,
-    AuthModule
+    AuthModule,
+    OAuthModule
   ],
   providers: [
     {
