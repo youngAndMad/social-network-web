@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ApiInterceptor } from './common/interceptor/api.interceptor';
 import { QrModule } from './features/qr/qr.module';
+import { NewsModule } from "./features/news/news.module";
 import { EnvService } from "./common/service/env.service";
 import { NavbarComponent } from './shared/layout/navbar/navbar.component';
 import { FooterComponent } from './shared/layout/footer/footer.component';
@@ -15,6 +16,7 @@ import { KeycloakAngularModule, KeycloakService } from "keycloak-angular";
 import { initializeKeycloak } from "./common/factory/keycloak-init.factory";
 import { HomeComponent } from './shared/layout/home/home.component';
 import { WebsocketService } from "./common/service/websocket.service";
+
 
 @NgModule({
   declarations: [
@@ -29,6 +31,7 @@ import { WebsocketService } from "./common/service/websocket.service";
     HttpClientModule,
     ReactiveFormsModule,
     QrModule,
+    NewsModule,
     BrowserAnimationsModule,
     TuiRootModule,
     KeycloakAngularModule,

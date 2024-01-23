@@ -1,0 +1,60 @@
+<div class="container">
+    <h2>Publish News <form action=""></form>
+    </h2>
+    <form [formGroup]="newsForm" (ngSubmit)="submitNewsForm()">
+        <div class="tui-form__row">
+            <tui-input formControlName="title" tuiHintContent="Title">
+                Title
+                <input tuiTextfield [required]="true" />
+                <span class="tui-required"></span>
+            </tui-input>
+            <tui-error formControlName="title" [error]="[] | tuiFieldError | async"></tui-error>
+        </div>
+        <tui-textarea id="content_area" formControlName="content"  [expandable]="true" class="tui-space_bottom-4 field-large">
+            Content
+        </tui-textarea>
+        <div class="tui-form__row">
+
+            <tui-input-files accept="image/*" textContent="hello" [formControl]="control" [multiple]="true"
+                (reject)="onReject($event)">
+                <div class="content">
+                    <ng-template let-dragged>
+                        <tui-marker-icon mode="link" src="tuiIconUploadCloudLarge"></tui-marker-icon>
+                        <div>
+                            Drag and drop file here or
+                            <a tuiLink>click to upload</a>
+                        </div>
+                    </ng-template>
+                </div>
+            </tui-input-files>
+
+            <tui-files class="tui-space_top-1">
+                <tui-file *ngFor="let file of control.valueChanges | async" [file]="file" [showDelete]="control.enabled"
+                    (removed)="removeFile(file)"></tui-file>
+
+                <tui-file *ngFor="let file of rejectedFiles" state="error" [file]="file" [showDelete]="control.enabled"
+                    (removed)="clearRejected(file)"></tui-file>
+            </tui-files>
+
+            <tui-error [error]="[] | tuiFieldError | async" [formControl]="control"></tui-error>
+
+        </div>
+
+        <div class="tui-form__field-checkbox">
+            <tui-checkbox-labeled formControlName="emailSending" size="l">
+                Email sending
+            </tui-checkbox-labeled>
+        </div>
+
+        <div class="tui-form__buttons">
+            <button size="m" tuiButton type="submit" class="tui-form__button" [class.tui-skeleton_light]="false"
+                [class.tui-skeleton]="false">
+                Submit
+            </button>
+            <button appearance="flat" size="m" tuiButton type="button" class="tui-form__button"
+                [class.tui-skeleton_light]="false" [class.tui-skeleton]="false">
+                Cancel
+            </button>
+        </div>
+    </form>
+</div>

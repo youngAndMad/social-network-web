@@ -40,6 +40,6 @@ export class NewsService {
       formData.append('files', file, file.name)
     })
 
-    return this._http.post<News>(`/api/v1/news/`, formData)
+    return this._http.post<News>(`/api/v1/news`, formData)
   }
 }
