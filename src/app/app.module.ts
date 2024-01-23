@@ -15,7 +15,7 @@ import { AuthModule } from "./features/auth/auth.module";
 import { KeycloakAngularModule, KeycloakService } from "keycloak-angular";
 import { initializeKeycloak } from "./common/factory/keycloak-init.factory";
 import { HomeComponent } from './shared/layout/home/home.component';
-
+import { WebsocketService } from "./common/service/websocket.service";
 
 @NgModule({
   declarations: [
@@ -49,6 +49,7 @@ import { HomeComponent } from './shared/layout/home/home.component';
       multi: true,
       deps: [KeycloakService, EnvService],
     },
+    WebsocketService
   ],
   bootstrap: [AppComponent]
 })
