@@ -11,7 +11,6 @@ import { EnvService } from "./common/service/env.service";
 import { NavbarComponent } from './shared/layout/navbar/navbar.component';
 import { FooterComponent } from './shared/layout/footer/footer.component';
 import { ReactiveFormsModule } from "@angular/forms";
-import { AuthModule } from "./features/auth/auth.module";
 import { KeycloakAngularModule, KeycloakService } from "keycloak-angular";
 import { initializeKeycloak } from "./common/factory/keycloak-init.factory";
 import { HomeComponent } from './shared/layout/home/home.component';
@@ -35,7 +34,6 @@ import { WebsocketService } from "./common/service/websocket.service";
     KeycloakAngularModule,
     TuiDialogModule,
     TuiAlertModule,
-    AuthModule,
   ],
   providers: [
     {
