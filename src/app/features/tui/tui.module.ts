@@ -9,32 +9,29 @@ import { TuiInputModule } from '@taiga-ui/kit';
 import { TuiCheckboxLabeledModule } from '@taiga-ui/kit';
 import { TuiButtonModule } from '@taiga-ui/core';
 import { TuiMarkerIconModule } from '@taiga-ui/kit';
+import { TuiPaginationModule } from '@taiga-ui/kit';
+import { TuiTextfieldControllerModule } from '@taiga-ui/core';
+import { TuiInputSliderModule } from '@taiga-ui/kit';
 
+const modules: any[] = [
+  CommonModule,
+  TuiTextfieldControllerModule,
+  TuiInputSliderModule,
+  TuiFilesModule,
+  TuiTextareaModule,
+  TuiErrorModule,
+  TuiInputModule,
+  TuiFieldErrorPipeModule,
+  TuiInputFilesModule,
+  TuiButtonModule,
+  TuiMarkerIconModule,
+  TuiCheckboxLabeledModule,
+  TuiPaginationModule
+]
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    TuiFilesModule,
-    TuiTextareaModule,
-    TuiErrorModule,
-    TuiInputModule,
-    TuiFieldErrorPipeModule,
-    TuiInputFilesModule,
-    TuiButtonModule,
-    TuiMarkerIconModule,
-    TuiCheckboxLabeledModule
-  ],
-  exports:[
-    TuiFilesModule,
-    TuiTextareaModule,
-    TuiErrorModule,
-    TuiInputModule,
-    TuiFieldErrorPipeModule,
-    TuiInputFilesModule,
-    TuiButtonModule,
-    TuiMarkerIconModule,
-    TuiCheckboxLabeledModule
-  ]
+  imports: modules,
+  exports: modules
 })
 export class TuiModule { }
