@@ -7,12 +7,12 @@ import { ProfileService } from './profile.service';
 @Injectable({
   providedIn: 'root'
 })
-export class WebsocketService{
+export class WebsocketService {
   private stompClient;
 
   constructor(
-    private _envService: EnvService,
-    private _profileService: ProfileService
+    private readonly _envService: EnvService,
+    private readonly _profileService: ProfileService
   ) {
   }
 
@@ -21,7 +21,7 @@ export class WebsocketService{
     this.stompClient = Stomp.over(ws);
     this.stompClient.connect({}, (fr) => {
       console.log('successfully ws connection', fr)
-      this.send({},'/start_session')
+      this.send({}, '/start_session')
     })
   }
 
@@ -33,5 +33,13 @@ export class WebsocketService{
     return {
       'profile': JSON.stringify(this._profileService.getProfile())
     }
+  }
+
+  subscribe = (
+    channel: string,
+    callback: (event: any) => void,
+    onError: (err: any) => void
+  ) => {
+    this.stompClient.subscribe(channel, callback, onError);
   }
 }

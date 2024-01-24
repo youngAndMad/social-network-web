@@ -16,6 +16,7 @@ import { KeycloakAngularModule, KeycloakService } from "keycloak-angular";
 import { initializeKeycloak } from "./common/factory/keycloak-init.factory";
 import { HomeComponent } from './shared/layout/home/home.component';
 import { WebsocketService } from "./common/service/websocket.service";
+import { ChatModule } from "./features/chat/chat.module";
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { WebsocketService } from "./common/service/websocket.service";
     KeycloakAngularModule,
     TuiDialogModule,
     TuiAlertModule,
+    ChatModule
   ],
   providers: [
     {
