@@ -10,25 +10,29 @@ import { News } from '../../models/news';
 })
 export class NewsListComponent implements OnInit {
 
-  length = 64;
-  index = 10;
-
+  length = 0;
   newsPage: Page<News>
-  defaultPage = 0
+  page = 0
   defaultPageSize = 10
 
   constructor(private readonly _newsService: NewsService) { }
 
   ngOnInit(): void {
-    this._newsService.paginate(this.defaultPage, this.defaultPageSize)
+    this.refreshNewsPage(0)
+  }
+
+  goToPage(page: number) {
+   this.refreshNewsPage(page)
+  }
+
+  refreshNewsPage = (page:number) =>{
+    this.page = page;
+
+    this._newsService.paginate(this.page, this.defaultPageSize)
       .subscribe(res => {
         this.newsPage = res
         this.length = res.totalPages
+        console.log(res)
       })
-  }
-
-  goToPage(index: number) {
-    this.index = index;
-    console.info('New page:', index);
   }
 }

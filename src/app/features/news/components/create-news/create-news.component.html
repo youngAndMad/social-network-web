@@ -52,7 +52,9 @@
                 Submit
             </button>
             <button appearance="flat" size="m" tuiButton type="button" class="tui-form__button"
-                [class.tui-skeleton_light]="false" [class.tui-skeleton]="false">
+                [class.tui-skeleton_light]="false" [class.tui-skeleton]="false"
+                (click)="cancel()"
+                >
                 Cancel
             </button>
         </div>

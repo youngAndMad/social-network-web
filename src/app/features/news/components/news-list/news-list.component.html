@@ -1,17 +1,13 @@
-<tui-input-slider
-    tuiTextfieldSize="m"
-    class="slider"
-    [max]="length - 1"
-    [quantum]="1"
-    [tuiTextfieldCustomContent]="inputCustomContent"
-    [tuiTextfieldLabelOutside]="true"
-    [(ngModel)]="index"
-></tui-input-slider>
+<ng-container *ngFor="let news of newsPage?.content">
+  <div class="container mt-4">
+    <div class="card-body">
+      <h5 class="card-title">{{ news.title }}</h5>
+      <p class="card-text">{{ news.content }}</p>
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let file of news.files">{{ file }}</li>
+      </ul>
+    </div>
+  </div>
+</ng-container>
 
-<ng-template #inputCustomContent>index</ng-template>
-
-<tui-pagination
-    [index]="index"
-    [length]="length"
-    (indexChange)="goToPage($event)"
-></tui-pagination>
+<tui-pagination [index]="page" [length]="length" (indexChange)="goToPage($event)"></tui-pagination>

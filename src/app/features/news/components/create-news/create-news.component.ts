@@ -54,7 +54,13 @@ export class CreateNewsComponent implements OnInit {
     let news = this.newsForm.value
     this._newsService.createNews(
       news.title, news.content, news.emailSending, this.control.value!
-    ).subscribe(console.log);
+    ).subscribe(res=> {
+        console.log(res);
+        this.newsForm.reset()
+    });
   }
 
+  cancel(){
+    window.history.back()
+  }
 }
