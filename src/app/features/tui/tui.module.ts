@@ -13,6 +13,7 @@ import { TuiPaginationModule } from '@taiga-ui/kit';
 import { TuiTextfieldControllerModule } from '@taiga-ui/core';
 import { TuiInputSliderModule } from '@taiga-ui/kit';
 import { TuiLinkModule } from '@taiga-ui/core';
+import { TuiAvatarModule } from '@taiga-ui/kit';
 
 
 const modules: any[] = [
@@ -30,7 +31,7 @@ const modules: any[] = [
   TuiMarkerIconModule,
   TuiCheckboxLabeledModule,
   TuiPaginationModule,
-  
+  TuiAvatarModule
 ]
 
 @NgModule({
