@@ -4,20 +4,26 @@ import { Profile } from '../model/profile';
 import { tick } from '@angular/core/testing';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProfileService {
-
-  constructor(private readonly _keycloak: KeycloakService) { }
+  constructor(private readonly _keycloak: KeycloakService) {}
 
   getProfile = (): Profile => {
-    let idToken = this._keycloak.getKeycloakInstance().idTokenParsed!
+    let idToken = this._keycloak.getKeycloakInstance().idTokenParsed!;
+    console.log({
+      givenName: idToken['given_name'],
+      email: idToken['email'],
+      emailVerified: idToken['email_verified'],
+      familyName: idToken['family_name'],
+      preferredUsername: idToken['preferred_username'],
+    });
     return {
       givenName: idToken['given_name'],
       email: idToken['email'],
       emailVerified: idToken['email_verified'],
       familyName: idToken['family_name'],
-      preferredUsername: idToken['preferred_username']
-    }
-  }
+      preferredUsername: idToken['preferred_username'],
+    };
+  };
 }

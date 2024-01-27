@@ -4,16 +4,14 @@ import { KeycloakService } from 'keycloak-angular';
 @Component({
   selector: 'social-app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
+  loggedIn: boolean = false;
 
-  loggedIn: boolean = false
-
-  constructor(private readonly _keycloakService: KeycloakService) { }
+  constructor(private readonly _keycloakService: KeycloakService) {}
 
   ngOnInit(): void {
-    this.loggedIn = this._keycloakService.isLoggedIn()
+    this.loggedIn = this._keycloakService.isLoggedIn();
   }
-
 }
