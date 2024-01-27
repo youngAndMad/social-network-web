@@ -1,1 +1,87 @@
-<ui-avatar imageUrl="https://avatars.githubusercontent.com/u/11832552?v=4" size="xxl"></ui-avatar>
+<div class="container rounded bg-white mt-5 mb-5">
+  <div class="row">
+    <div class="col-md-3 border-right">
+      <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+        <ui-avatar
+          imageUrl="https://avatars.githubusercontent.com/u/11832552?v=4"
+          size="xxl"
+        ></ui-avatar
+        ><span class="font-weight-bold">Edogaru</span
+        ><span class="text-black-50">edogaru@mail.com.my</span><span> </span>
+      </div>
+    </div>
+    <form [formGroup]="userForm">
+      <div class="tui-row tui-row_sme">
+        <div class="tui-col_8">
+          <h3 class="tui-form__header tui-form__header_margin-top_none">
+            Profile setting
+          </h3>
+          <div class="tui-form__row tui-form__row_multi-fields">
+            <div class="tui-form__multi-field">
+              <tui-input
+                formControlName="givenName"
+                tuiHintContent="With a hint"
+              >
+                FirstName
+              </tui-input>
+            </div>
+            <div class="tui-form__multi-field">
+              <tui-input
+                formControlName="familyName"
+                tuiHintContent="With a hint"
+              >
+                LastName
+              </tui-input>
+            </div>
+          </div>
+          <div class="tui-form__row tui-form__row_multi-fields">
+            <div class="tui-form__multi-field">
+              <tui-input formControlName="email" tuiHintContent="With a hint">
+                Email
+              </tui-input>
+            </div>
+            <div class="tui-form__multi-field">
+              <tui-input-date formControlName="birthDate">
+                Birth Date
+              </tui-input-date>
+            </div>
+          </div>
+
+          <div class="tui-form__row tui-form__row_multi-fields">
+            <div class="tui-form__multi-field">
+              <tui-input formControlName="email" tuiHintContent="With a hint">
+                Username
+              </tui-input>
+            </div>
+            <div class="tui-form__multi-field">
+              <tui-select tuiTextfieldSize="l" formControlName="gender">
+                Gender
+                <tui-data-list-wrapper
+                  *tuiDataList
+                  [items]="genders"
+                ></tui-data-list-wrapper>
+              </tui-select>
+            </div>
+          </div>
+        </div>
+        <div class="tui-col_8 mt-4" formGroupName="address">
+          <h3 class="tui-form__header tui-form__header_margin-top_none">
+            Address setting
+          </h3>
+          <div class="tui-form__row tui-form__row_multi-fields">
+            <div class="tui-form__multi-field">
+              <tui-input formControlName="country" tuiHintContent="With a hint">
+                Country
+              </tui-input>
+            </div>
+            <div class="tui-form__multi-field">
+              <tui-input formControlName="city" tuiHintContent="With a hint">
+                City
+              </tui-input>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

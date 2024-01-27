@@ -7,16 +7,13 @@ import { TuiModule } from '../tui/tui.module';
 import { NewsListComponent } from './components/news-list/news-list.component';
 
 @NgModule({
-  declarations: [
-    CreateNewsComponent,
-    NewsListComponent
-  ],
+  declarations: [CreateNewsComponent, NewsListComponent],
   imports: [
     CommonModule,
     NewsRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    TuiModule
-  ]
+    TuiModule,
+  ],
 })
-export class NewsModule { }
+export class NewsModule {}
