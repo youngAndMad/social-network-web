@@ -9,24 +9,19 @@ import { ApiInterceptor } from './common/interceptor/api.interceptor';
 import { QrModule } from './features/qr/qr.module';
 import { NewsModule } from "./features/news/news.module";
 import { EnvService } from "./common/service/env.service";
-import { NavbarComponent } from './shared/layout/navbar/navbar.component';
-import { FooterComponent } from './shared/layout/footer/footer.component';
 import { ReactiveFormsModule } from "@angular/forms";
 import { KeycloakAngularModule, KeycloakService } from "keycloak-angular";
 import { initializeKeycloak } from "./common/factory/keycloak-init.factory";
-import { HomeComponent } from './shared/layout/home/home.component';
 import { WebsocketService } from "./common/service/websocket.service";
 import { ChatModule } from "./features/chat/chat.module";
 import { UserModule } from "./features/user/user.module";
 import { TuiModule } from "./features/tui/tui.module";
+import { LayoutModule } from './shared/layout/layout.module';
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-    NavbarComponent,
-    FooterComponent,
-    HomeComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +37,8 @@ import { TuiModule } from "./features/tui/tui.module";
     TuiAlertModule,
     ChatModule,
     UserModule,
-    TuiModule
+    TuiModule,
+    LayoutModule
   ],
   providers: [
     {
