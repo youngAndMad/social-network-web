@@ -1,8 +1,8 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 declare var SockJS;
 declare var Stomp;
 import { EnvService } from './env.service';
-import { ProfileService } from './profile.service';
+import { KeycloakService } from 'keycloak-angular';
 
 @Injectable({
   providedIn: 'root'
@@ -12,26 +12,26 @@ export class WebsocketService {
 
   constructor(
     private readonly _envService: EnvService,
-    private readonly _profileService: ProfileService
+    private readonly _keycloak: KeycloakService
   ) {
   }
 
   connect() {
     const ws = new SockJS(this._envService.websocketUrl);
     this.stompClient = Stomp.over(ws);
-    this.stompClient.connect({}, (fr) => {
+    this.stompClient.connect(this.authHeader(), (fr) => {
       console.log('successfully ws connection', fr)
       this.send({}, '/start_session')
     })
   }
 
   send(message: any = {}, destination: string) {
-    this.stompClient.send(destination, this.profileHeader(), message)
+    this.stompClient.send(destination, this.authHeader(), message)
   }
 
-  private profileHeader() {
+  private authHeader() {
     return {
-      'profile': JSON.stringify(this._profileService.getProfile())
+      'X-Authorization': this._keycloak.getKeycloakInstance().token
     }
   }
 
