@@ -1,5 +1,9 @@
 import { Component, Input } from '@angular/core';
 
+export type AvatarSize = "xxs" | "xs" | "s" | "m" | "l" | "xl" | "xxl";
+
+
+
 @Component({
   selector: 'ui-avatar',
   templateUrl: './avatar.component.html',
@@ -8,4 +12,5 @@ import { Component, Input } from '@angular/core';
 export class AvatarComponent {
 
   @Input() imageUrl: string
+  @Input() size: AvatarSize = "xxs"
 }
