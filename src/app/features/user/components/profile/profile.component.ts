@@ -19,7 +19,6 @@ export class ProfileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('ngOnInit');
     this.profile = this._profileService.getProfile();
     this.userForm = this._fb.group({
       birthDate: [],
@@ -33,5 +32,9 @@ export class ProfileComponent implements OnInit {
         city: [],
       }),
     });
+  }
+
+  submitForm() {
+    console.log(this.userForm.value);
   }
 }
