@@ -51,6 +51,7 @@ export class CreateNewsComponent implements OnInit {
 
   submitNewsForm() {
     console.log('submitNewsForm', this.newsForm.value);
+    console.log('submitNewsForm', this.control.value);
     let news = this.newsForm.value
     this._newsService.createNews(
       news.title, news.content, news.emailSending, this.control.value!
