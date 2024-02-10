@@ -13,11 +13,11 @@ export function initializeKeycloak(
         clientId: envService.kcClientId,
       },
       initOptions: {
-        redirectUri: envService.kcRedirectUrl,
+        // redirectUri: envService.kcRedirectUrl,
+        onLoad: 'check-sso',
         checkLoginIframe: false,
       },
       bearerPrefix: 'Bearer ',
-      loadUserProfileAtStartUp: true,
       enableBearerInterceptor: true
     });
 }
