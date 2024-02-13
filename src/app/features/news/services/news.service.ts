@@ -40,6 +40,9 @@ export class NewsService {
       formData.append('files', file, file.name)
     })
 
+    console.log(
+      'wanna send post request'
+    )
     return this._http.post<News>(`/api/v1/news`, formData)
   }
 }

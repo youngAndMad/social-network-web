@@ -1,4 +1,4 @@
-import { EnvService } from './../service/env.service';
+import {EnvService} from './../service/env.service';
 import {KeycloakService} from "keycloak-angular";
 
 export function initializeKeycloak(
@@ -13,10 +13,11 @@ export function initializeKeycloak(
         clientId: envService.kcClientId,
       },
       initOptions: {
-        redirectUri:  envService.kcRedirectUrl,
+        // redirectUri: envService.kcRedirectUrl,
+        onLoad: 'check-sso',
         checkLoginIframe: false,
       },
       bearerPrefix: 'Bearer ',
-      loadUserProfileAtStartUp: true
+      enableBearerInterceptor: true
     });
 }
