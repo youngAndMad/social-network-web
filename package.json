@@ -3,9 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --host 127.0.0.1",
     "build": "ng build",
-    "dev": "ng serve --configuration dev",
+    "start": "ng serve --configuration dev",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -29,6 +28,7 @@
     "@types/stompjs": "^2.3.9",
     "keycloak-angular": "^15.0.0",
     "keycloak-js": "^23.0.4",
+    "ngx-logger": "^5.0.12",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"

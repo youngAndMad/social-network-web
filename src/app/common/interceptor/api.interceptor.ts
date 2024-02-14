@@ -21,16 +21,9 @@ export class ApiInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
     if (request.url.includes('api')) {
-      const token = this._keycloak.getToken();
       const modifiedReq = request.clone({
         url: this._envService.apiUrl + request.url,
-        setHeaders: {
-          Authorization: `Bearer ${token}`,
-        },
         withCredentials: false,
-        // headers: request.headers.set(
-        //   'Authorization', `Bearer ${token}`
-        // )
       });
       return next.handle(modifiedReq);
     }

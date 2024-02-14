@@ -1,4 +1,29 @@
-.slider {
-    width: 12.5rem;
-    margin-bottom: 1em;
+.news-item {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+
+    h2 {
+        margin-top: 0;
+    }
+
+    .published-date {
+        font-style: italic;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+        margin-top: 10px;
+
+        li {
+            margin-bottom: 5px;
+        }
+    }
+}
+
+p.no-news {
+    font-style: italic;
+    color: #666;
 }
