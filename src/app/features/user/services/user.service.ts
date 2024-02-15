@@ -1,3 +1,4 @@
+import { IsExists } from './../models/dto/is-exists.dto';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -34,4 +35,7 @@ export class UserService {
 
   register = (req: RegistrationDto): Observable<User> =>
     this._http.post<User>('/api/v1/user/register', req);
+
+  isExists = (email: string): Observable<IsExists> =>
+    this._http.get<IsExists>('/api/v1/user/is-exists', { params: { email } });
 }

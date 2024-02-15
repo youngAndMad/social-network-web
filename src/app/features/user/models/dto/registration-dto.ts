@@ -3,10 +3,10 @@ import { AddressDto } from './address-dto';
 
 export class RegistrationDto {
   givenName: string;
-  address: AddressDto;
+  address?: AddressDto;
   familyName: string;
   preferredUsername: string;
   email: string;
-  gender: Gender;
-  birthDate: Date;
+  gender?: Gender;
+  birthDate?: Date;
 }
