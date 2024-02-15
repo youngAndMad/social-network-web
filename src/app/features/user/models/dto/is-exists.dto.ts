@@ -1,6 +1,6 @@
 import { User } from '../user';
 
 export type IsExists = {
-  isExists: boolean;
+  exists: boolean;
   user: User;
 };

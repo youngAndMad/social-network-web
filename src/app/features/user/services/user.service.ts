@@ -34,8 +34,10 @@ export class UserService {
   };
 
   register = (req: RegistrationDto): Observable<User> =>
-    this._http.post<User>('/api/v1/user/register', req);
+    this._http.post<User>('/api/v1/user', req);
 
   isExists = (email: string): Observable<IsExists> =>
     this._http.get<IsExists>('/api/v1/user/is-exists', { params: { email } });
+
+  me = (): Observable<User> => this._http.get<User>('/api/v1/user/me');
 }

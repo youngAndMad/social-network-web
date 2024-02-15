@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Profile } from 'src/app/common/model/profile';
 import { ProfileService } from 'src/app/common/service/profile.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -15,7 +16,8 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private readonly _fb: FormBuilder,
-    private readonly _profileService: ProfileService
+    private readonly _profileService: ProfileService,
+    private readonly _userService: UserService
   ) {}
 
   ngOnInit(): void {
@@ -32,9 +34,12 @@ export class ProfileComponent implements OnInit {
         city: [],
       }),
     });
+
+    this._userService.me().subscribe(console.log);
   }
 
   submitForm() {
     console.log(this.userForm.value);
+    this._userService.register(this.userForm.value).subscribe(console.log);
   }
 }

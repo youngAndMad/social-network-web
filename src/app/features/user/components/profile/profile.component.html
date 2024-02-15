@@ -6,8 +6,9 @@
           imageUrl="https://avatars.githubusercontent.com/u/11832552?v=4"
           size="xxl"
         ></ui-avatar
-        ><span class="font-weight-bold">Edogaru</span
-        ><span class="text-black-50">edogaru@mail.com.my</span><span> </span>
+        ><span class="font-weight-bold">{{ profile.preferredUsername }}</span
+        ><span class="text-black-50">{{ profile.email }}</span
+        ><span> </span>
       </div>
     </div>
     <form [formGroup]="userForm">

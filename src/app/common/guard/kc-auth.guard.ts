@@ -32,19 +32,9 @@ export class AuthGuard extends KeycloakAuthGuard {
     }
     const idTokenParsed = this.keycloak.getKeycloakInstance().idTokenParsed!;
     const email = idTokenParsed['email'];
-    const givenName = idTokenParsed['given_name'];
-    const familyName = idTokenParsed['family_name'];
-    const preferredUsername = idTokenParsed['preferred_username'];
     this.userService.isExists(email).subscribe((res) => {
-      if (res.isExists === true) {
-        this.userService
-          .register({
-            givenName,
-            familyName,
-            preferredUsername,
-            email,
-          })
-          .subscribe((res) => console.log(res)); //todo redirect to user profile page
+      if (res.exists === false) {
+        this.router.navigate(['/user/profile']).then();
       }
     });
 
