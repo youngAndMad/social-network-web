@@ -6,6 +6,7 @@ import { UiModule } from 'src/app/shared/ui/ui.module';
 import { TuiModule } from '../tui/tui.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [ProfileComponent],
@@ -17,6 +18,9 @@ import { BrowserModule } from '@angular/platform-browser';
     TuiModule,
     FormsModule,
     ReactiveFormsModule,
+    ToastrModule.forRoot({
+      maxOpened: 5,
+    }),
   ],
 })
 export class UserModule {}

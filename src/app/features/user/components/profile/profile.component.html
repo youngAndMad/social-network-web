@@ -5,13 +5,10 @@
         <ui-avatar
           imageUrl="https://avatars.githubusercontent.com/u/11832552?v=4"
           size="xxl"
-        ></ui-avatar
-        ><span class="font-weight-bold">{{ profile.preferredUsername }}</span
-        ><span class="text-black-50">{{ profile.email }}</span
-        ><span> </span>
+        ></ui-avatar>
       </div>
     </div>
-    <form [formGroup]="userForm">
+    <form [formGroup]="userForm" *ngIf="user !== undefined && user !== null">
       <div class="tui-row tui-row_sme">
         <div class="tui-col_8">
           <h3 class="tui-form__header tui-form__header_margin-top_none">
@@ -50,7 +47,10 @@
 
           <div class="tui-form__row tui-form__row_multi-fields">
             <div class="tui-form__multi-field">
-              <tui-input formControlName="email" tuiHintContent="With a hint">
+              <tui-input
+                formControlName="preferredUsername"
+                tuiHintContent="With a hint"
+              >
                 Username
               </tui-input>
             </div>

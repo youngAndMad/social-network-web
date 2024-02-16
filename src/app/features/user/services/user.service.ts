@@ -40,4 +40,7 @@ export class UserService {
     this._http.get<IsExists>('/api/v1/user/is-exists', { params: { email } });
 
   me = (): Observable<User> => this._http.get<User>('/api/v1/user/me');
+
+  update = (req: any, id: number): Observable<any> =>
+    this._http.put(`/api/v1/user/${id}`, req);
 }

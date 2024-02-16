@@ -6,6 +6,7 @@ export type User = {
   givenName: string;
   preferredUsername: string;
   familyName: string;
+  email:string;
   avatar: string;
   gender: Gender;
   birthDate: Date;

@@ -3,7 +3,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 
@@ -37,10 +36,6 @@ import { LayoutModule } from './shared/layout/layout.module';
     UserModule,
     TuiModule,
     LayoutModule,
-    LoggerModule.forRoot({
-      level: NgxLoggerLevel.ERROR, // Set the desired log level here
-      serverLogLevel: NgxLoggerLevel.ERROR,
-    }),
   ],
   providers: [
     {
