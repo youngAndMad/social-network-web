@@ -5,7 +5,7 @@ import { maxFilesLength } from '../../validate/maxFilesLength.validator';
 import { TuiFileLike } from '@taiga-ui/kit';
 
 @Component({
-  selector: 'app-create-news',
+  selector: 'sp-create-news',
   templateUrl: './create-news.component.html',
   styleUrls: ['./create-news.component.scss']
 })

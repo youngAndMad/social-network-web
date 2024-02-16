@@ -6,7 +6,7 @@ import { FileService } from 'src/app/features/file/services/file.service';
 import { FileMetadata } from '../../models/file-metadata';
 
 @Component({
-  selector: 'app-news-list',
+  selector: 'sp-news-list',
   templateUrl: './news-list.component.html',
   styleUrls: ['./news-list.component.scss'],
 })

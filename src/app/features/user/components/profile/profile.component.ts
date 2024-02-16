@@ -5,7 +5,7 @@ import { User } from '../../models/user';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-profile',
+  selector: 'sp-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
 })

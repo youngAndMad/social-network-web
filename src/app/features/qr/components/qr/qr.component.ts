@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { QrService } from '../../services/qr.service';
 
 @Component({
-  selector: 'app-qr',
+  selector: 'sp-qr',
   templateUrl: './qr.component.html',
   styleUrls: ['./qr.component.scss']
 })
