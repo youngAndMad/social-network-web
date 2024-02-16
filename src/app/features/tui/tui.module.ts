@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { TuiFilesModule } from '@taiga-ui/kit';
 import { TuiInputNumberModule } from '@taiga-ui/kit';
 import { TuiInputFilesModule } from '@taiga-ui/kit';
-import { TuiErrorModule } from '@taiga-ui/core';
+import { TuiErrorModule, TuiSvgModule } from '@taiga-ui/core';
 import { TuiFieldErrorPipeModule } from '@taiga-ui/kit';
 import { TuiTextareaModule } from '@taiga-ui/kit';
 import { TuiInputModule } from '@taiga-ui/kit';
@@ -24,7 +24,7 @@ const modules: any[] = [
   TuiLinkModule,
   TuiSelectModule,
   CommonModule,
-  TuiInputDateModule, 
+  TuiInputDateModule,
   TuiCalendarModule,
   TuiDataListWrapperModule,
   TuiTextfieldControllerModule,
@@ -32,6 +32,7 @@ const modules: any[] = [
   TuiInputNumberModule,
   TuiFilesModule,
   TuiTextareaModule,
+  TuiSvgModule,
   TuiErrorModule,
   TuiInputModule,
   TuiFieldErrorPipeModule,

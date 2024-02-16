@@ -14,4 +14,8 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     this.loggedIn = this._keycloakService.isLoggedIn();
   }
+
+  loginToKc(){
+    this._keycloakService.login()
+  }
 }
