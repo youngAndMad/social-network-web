@@ -4,13 +4,8 @@ import { AvatarComponent } from './avatar/avatar.component';
 import { TuiModule } from 'src/app/features/tui/tui.module';
 
 @NgModule({
-  declarations: [
-    AvatarComponent
-  ],
-  imports: [
-    CommonModule,
-    TuiModule
-  ],
-  exports: [AvatarComponent]
+  declarations: [AvatarComponent],
+  imports: [CommonModule, TuiModule],
+  exports: [AvatarComponent],
 })
-export class UiModule { }
+export class UiModule {}
