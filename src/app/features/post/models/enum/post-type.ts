@@ -1,0 +1,4 @@
+export enum PostType {
+  CHANNEL_POST = 'CHANNEL_POST',
+  USER_PROFILE_POST = 'USER_PROFILE_POST',
+}
