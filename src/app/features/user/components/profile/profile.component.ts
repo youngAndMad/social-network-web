@@ -41,7 +41,6 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this._userService.me().subscribe((user) => {
       this.user = user;
-      console.log(this.user);
       this.initializeForm();
       this._cdr.detectChanges();
     });
@@ -66,7 +65,6 @@ export class ProfileComponent implements OnInit {
     this._userService
       .update(this.userForm.value, this.user.id)
       .subscribe((res) => {
-        console.log('register response', res);
         this._toast.success('Profile updated successfulyy', '');
       });
   }
