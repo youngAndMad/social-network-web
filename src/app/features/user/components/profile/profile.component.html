@@ -2,10 +2,14 @@
   <div class="row">
     <div class="col-md-3 border-right">
       <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-        <ui-avatar
-          imageUrl="https://avatars.githubusercontent.com/u/11832552?v=4"
-          size="xxl"
-        ></ui-avatar>
+        <tui-avatar
+          fallback="tuiIconUserLarge"
+          new
+          class="tui-space_left-3 avatar"
+          avatarUrl="https://avatars.githubusercontent.com/u/11832552?v=4"
+          [size]="'xxl'"
+          title="Change profile"
+        ></tui-avatar>
       </div>
     </div>
     <form [formGroup]="userForm" *ngIf="user !== undefined && user !== null">
@@ -19,6 +23,7 @@
               <tui-input
                 formControlName="givenName"
                 tuiHintContent="With a hint"
+                [required]="true"
               >
                 FirstName
               </tui-input>
@@ -27,6 +32,7 @@
               <tui-input
                 formControlName="familyName"
                 tuiHintContent="With a hint"
+                [required]="true"
               >
                 LastName
               </tui-input>
@@ -34,12 +40,16 @@
           </div>
           <div class="tui-form__row tui-form__row_multi-fields">
             <div class="tui-form__multi-field">
-              <tui-input formControlName="email" tuiHintContent="With a hint">
+              <tui-input
+                formControlName="email"
+                [required]="true"
+                tuiHintContent="With a hint"
+              >
                 Email
               </tui-input>
             </div>
             <div class="tui-form__multi-field">
-              <tui-input-date formControlName="birthDate">
+              <tui-input-date formControlName="birthDate" [required]="true">
                 Birth Date
               </tui-input-date>
             </div>
@@ -50,12 +60,17 @@
               <tui-input
                 formControlName="preferredUsername"
                 tuiHintContent="With a hint"
+                [required]="true"
               >
                 Username
               </tui-input>
             </div>
             <div class="tui-form__multi-field">
-              <tui-select tuiTextfieldSize="l" formControlName="gender">
+              <tui-select
+                tuiTextfieldSize="l"
+                [required]="true"
+                formControlName="gender"
+              >
                 Gender
                 <tui-data-list-wrapper
                   *tuiDataList
@@ -71,12 +86,20 @@
           </h3>
           <div class="tui-form__row tui-form__row_multi-fields">
             <div class="tui-form__multi-field">
-              <tui-input formControlName="country" tuiHintContent="With a hint">
+              <tui-input
+                formControlName="country"
+                [required]="true"
+                tuiHintContent="With a hint"
+              >
                 Country
               </tui-input>
             </div>
             <div class="tui-form__multi-field">
-              <tui-input formControlName="city" tuiHintContent="With a hint">
+              <tui-input
+                formControlName="city"
+                [required]="true"
+                tuiHintContent="With a hint"
+              >
                 City
               </tui-input>
             </div>
