@@ -9,6 +9,7 @@
           [avatarUrl]="imageLink(this.user.avatar)"
           [size]="'xxl'"
           title="Change profile image"
+          *ngIf="user !== undefined && user !== null"
           (click)="fileInput.click()"
         >
           <input
@@ -132,15 +133,36 @@
   </div>
   <hr />
 
-  <!-- <div class="tui-col_8 mt-4">
+  <div class="tui-col_8 mt-4">
     <button
       appearance="secondary-destructive"
       tuiButton
       class="tui-space_right-3 tui-space_bottom-3"
       size="m"
-      (click)="onDeleteAccountAttempt()"
+      (click)="showDialog(deleteAccoutModal, 'Are you sure to delete account?')"
     >
       Delete Account
     </button>
-  </div> -->
+  </div>
+  <ng-template #deleteAccoutModal let-observe>
+    <button
+      size="m"
+      tuiButton
+      appearance="accent"
+      type="button"
+      class="tui-space_right-3"
+      (click)="deleteAccount()"
+    >
+      Yes
+    </button>
+    <button
+      size="m"
+      tuiButton
+      appearance="secondary"
+      type="button"
+      (click)="closeDialog()"
+    >
+      Cancel
+    </button>
+  </ng-template>
 </div>

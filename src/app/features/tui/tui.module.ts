@@ -20,6 +20,7 @@ import { TuiCalendarModule } from '@taiga-ui/core';
 import { TuiSelectModule } from '@taiga-ui/kit';
 import { TuiPromptModule } from '@taiga-ui/kit';
 import { TuiInputDateModule } from '@taiga-ui/kit';
+import { TuiDialogModule } from '@taiga-ui/core';
 
 const modules: any[] = [
   TuiLinkModule,
@@ -44,6 +45,7 @@ const modules: any[] = [
   TuiCheckboxLabeledModule,
   TuiPaginationModule,
   TuiAvatarModule,
+  TuiDialogModule,
 ];
 
 @NgModule({

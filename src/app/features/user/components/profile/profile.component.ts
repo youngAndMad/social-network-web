@@ -9,11 +9,15 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user';
 import { ToastrService } from 'ngx-toastr';
-import { ActivatedRoute } from '@angular/router';
-import { TuiAlertService, TuiDialogService } from '@taiga-ui/core';
-import { TUI_PROMPT, TuiPromptData } from '@taiga-ui/kit';
-import { switchMap } from 'rxjs/operators';
+import {
+  TuiAlertService,
+  TuiDialogService,
+  TuiDialogContext,
+} from '@taiga-ui/core';
+import { PolymorpheusContent } from '@tinkoff/ng-polymorpheus';
 import { FileService } from 'src/app/features/file/services/file.service';
+import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'sp-profile',
@@ -25,6 +29,7 @@ export class ProfileComponent implements OnInit {
   userForm: FormGroup;
   genders = ['MALE', 'FEMALE'];
   user: User;
+  modelSubscription: Subscription;
 
   constructor(
     private readonly _fb: FormBuilder,
@@ -34,7 +39,8 @@ export class ProfileComponent implements OnInit {
     private readonly _toast: ToastrService,
     @Inject(TuiDialogService) private readonly _dialogs: TuiDialogService,
     @Inject(TuiAlertService) private readonly _alerts: TuiAlertService,
-    private readonly _cdr: ChangeDetectorRef
+    private readonly _cdr: ChangeDetectorRef,
+    private readonly _router: Router
   ) {}
 
   ngOnInit(): void {
@@ -70,24 +76,24 @@ export class ProfileComponent implements OnInit {
       });
   }
 
-  onDeleteAccountAttempt(): void {
-    console.log('onDeleteAccountAttempt');
-    const data: TuiPromptData = {
-      content:
-        'This is <code>PolymorpheusContent</code> so it can be template too!',
-      yes: 'That is great!',
-      no: 'Who cares?',
-    };
-
-    this._dialogs
-      .open<boolean>(TUI_PROMPT, {
-        label: 'Do you like Taiga UI?',
-        size: 's',
-        data,
-      })
-      .pipe(switchMap((response) => this._alerts.open(String(response))))
-      .subscribe((res) => console.log('res', res));
+  showDialog(
+    content: PolymorpheusContent<TuiDialogContext>,
+    label: string
+  ): void {
+    this.modelSubscription = this._dialogs
+      .open(content, { label: label })
+      .subscribe();
   }
+
+  closeDialog = () => this.modelSubscription.unsubscribe();
+
+  deleteAccount = () => {
+    this._userService.delete(this.user.id).subscribe(() => {
+      this.closeDialog();
+      localStorage.clear();
+      this._router.navigate(['/news']);
+    });
+  };
 
   onFileSelected(event: any) {
     const file = event.target.files[0];
