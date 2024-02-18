@@ -13,8 +13,8 @@ export class FileService {
     private readonly _envService: EnvService
   ) {}
 
-  generateDownloadUrl = (metadata: FileMetadata): string =>
-    this._envService.apiUrl + '/api/v1/file/' + metadata.url;
+  generateDownloadUrl = (url: string): string =>
+    this._envService.apiUrl + '/api/v1/file/download/' + url;
 
   downloadFile = (metadata: FileMetadata): Observable<Blob> => {
     return this._http.get('/api/v1/file/' + metadata.url, {

@@ -13,8 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TuiAlertService, TuiDialogService } from '@taiga-ui/core';
 import { TUI_PROMPT, TuiPromptData } from '@taiga-ui/kit';
 import { switchMap } from 'rxjs/operators';
-
-import { ProfileService } from 'src/app/common/service/profile.service';
+import { FileService } from 'src/app/features/file/services/file.service';
 
 @Component({
   selector: 'sp-profile',
@@ -30,9 +29,9 @@ export class ProfileComponent implements OnInit {
   constructor(
     private readonly _fb: FormBuilder,
     private readonly _userService: UserService,
+    private readonly _fileService: FileService,
+
     private readonly _toast: ToastrService,
-    private readonly _activateRoute: ActivatedRoute,
-    private readonly _profileService: ProfileService,
     @Inject(TuiDialogService) private readonly _dialogs: TuiDialogService,
     @Inject(TuiAlertService) private readonly _alerts: TuiAlertService,
     private readonly _cdr: ChangeDetectorRef
@@ -61,6 +60,8 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  imageLink = (url: string) => this._fileService.generateDownloadUrl(url);
+
   submitForm() {
     this._userService
       .update(this.userForm.value, this.user.id)
@@ -86,5 +87,16 @@ export class ProfileComponent implements OnInit {
       })
       .pipe(switchMap((response) => this._alerts.open(String(response))))
       .subscribe((res) => console.log('res', res));
+  }
+
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this._userService.uploadAvatar(file, this.user.id).subscribe(() => {
+        this._toast.success('Profile updated successfully', '', {
+          timeOut: 2000,
+        });
+      });
+    }
   }
 }

@@ -6,10 +6,20 @@
           fallback="tuiIconUserLarge"
           new
           class="tui-space_left-3 avatar"
-          avatarUrl="https://avatars.githubusercontent.com/u/11832552?v=4"
+          [avatarUrl]="imageLink(this.user.avatar)"
           [size]="'xxl'"
-          title="Change profile"
-        ></tui-avatar>
+          title="Change profile image"
+          (click)="fileInput.click()"
+        >
+          <input
+            hidden
+            #fileInput
+            type="file"
+            class="w-full h-full"
+            accept="image/*"
+            (change)="onFileSelected($event)"
+          />
+        </tui-avatar>
       </div>
     </div>
     <form [formGroup]="userForm" *ngIf="user !== undefined && user !== null">

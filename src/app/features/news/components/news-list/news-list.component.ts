@@ -41,6 +41,6 @@ export class NewsListComponent implements OnInit {
   };
 
   downloadFileUrl = (metadata: FileMetadata) => {
-    this._fileService.generateDownloadUrl(metadata);
+    this._fileService.generateDownloadUrl(metadata.url);
   };
 }
