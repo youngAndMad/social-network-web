@@ -6,9 +6,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { PostRoutingModule } from './post-routing.module';
+import { CreatePostComponent } from './components/create-post/create-post.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    CreatePostComponent
+  ],
   imports: [
     CommonModule,
     PostRoutingModule,

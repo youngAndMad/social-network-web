@@ -5,12 +5,19 @@ import { HomeComponent } from './shared/layout/home/home.component';
 
 const routes: Routes = [
   {
-    canActivate: [AuthGuard], path: 'home', component: HomeComponent
-  }
+    canActivate: [AuthGuard],
+    path: 'home',
+    component: HomeComponent,
+  },
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
