@@ -3,6 +3,7 @@ import {
   Component,
   OnInit,
   Inject,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { UserService } from '../../services/user.service';
@@ -26,8 +27,6 @@ export class ProfileComponent implements OnInit {
   genders = ['MALE', 'FEMALE'];
   user: User;
 
-  isLoaded: boolean = false;
-
   constructor(
     private readonly _fb: FormBuilder,
     private readonly _userService: UserService,
@@ -35,41 +34,18 @@ export class ProfileComponent implements OnInit {
     private readonly _activateRoute: ActivatedRoute,
     private readonly _profileService: ProfileService,
     @Inject(TuiDialogService) private readonly _dialogs: TuiDialogService,
-    @Inject(TuiAlertService) private readonly _alerts: TuiAlertService
+    @Inject(TuiAlertService) private readonly _alerts: TuiAlertService,
+    private readonly _cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    this._activateRoute.queryParams.subscribe((params) => {
-      const isRegistered = params['isRegistered'];
-      console.log(isRegistered);
-      console.log(params);
-
-      // if (false === isRegistered) {
-      //   const profile = this._profileService.getProfile();
-      //   this.userForm = this._fb.group({
-      //     birthDate: [],
-      //     preferredUsername: [profile?.preferredUsername],
-      //     givenName: [profile?.givenName],
-      //     familyName: [profile?.familyName],
-      //     email: [profile?.email],
-      //     gender: [],
-      //     address: this._fb.group({
-      //       country: [],
-      //       city: [],
-      //     }),
-      //   });
-      // } else {
-      this._userService.me().subscribe((user) => {
-        this.user = user;
-        this.isLoaded = true;
-        console.log(this.user);
-        this.initializeForm();
-      });
+    this._userService.me().subscribe((user) => {
+      this.user = user;
+      console.log(this.user);
+      this.initializeForm();
+      this._cdr.detectChanges();
     });
   }
-  //   }
-  //   this.isLoaded = true;
-  // });
 
   initializeForm(): void {
     this.userForm = this._fb.group({
@@ -87,19 +63,12 @@ export class ProfileComponent implements OnInit {
   }
 
   submitForm() {
-    if (this.user.id) {
-      this._userService
-        .update(this.userForm.value, this.user.id)
-        .subscribe((res) => {
-          console.log('register response', res);
-          this._toast.success('Profile updated successfulyy', '');
-        });
-    } else {
-      this._userService.register(this.userForm.value).subscribe((user) => {
-        console.log('register response', user);
+    this._userService
+      .update(this.userForm.value, this.user.id)
+      .subscribe((res) => {
+        console.log('register response', res);
         this._toast.success('Profile updated successfulyy', '');
       });
-    }
   }
 
   onDeleteAccountAttempt(): void {
