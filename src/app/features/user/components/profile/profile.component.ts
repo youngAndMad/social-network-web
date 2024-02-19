@@ -29,7 +29,9 @@ export class ProfileComponent implements OnInit {
   userForm: FormGroup;
   genders = ['MALE', 'FEMALE'];
   user: User;
-  modelSubscription: Subscription;
+  modalSubscription: Subscription;
+  open = false;
+  index = 0;
 
   constructor(
     private readonly _fb: FormBuilder,
@@ -49,6 +51,11 @@ export class ProfileComponent implements OnInit {
       this.initializeForm();
       this._cdr.detectChanges();
     });
+  }
+
+  onClick(): void {
+    this.open = false;
+    this.index = 1;
   }
 
   initializeForm(): void {
@@ -80,12 +87,12 @@ export class ProfileComponent implements OnInit {
     content: PolymorpheusContent<TuiDialogContext>,
     label: string
   ): void {
-    this.modelSubscription = this._dialogs
+    this.modalSubscription = this._dialogs
       .open(content, { label: label })
       .subscribe();
   }
 
-  closeDialog = () => this.modelSubscription.unsubscribe();
+  closeDialog = () => this.modalSubscription.unsubscribe();
 
   deleteAccount = () => {
     this._userService.delete(this.user.id).subscribe(() => {
@@ -102,7 +109,10 @@ export class ProfileComponent implements OnInit {
         this._toast.success('Profile updated successfully', '', {
           timeOut: 2000,
         });
+        this._cdr.detectChanges();
       });
+    } else {
+      this._toast.error('Image does not selected');
     }
   }
 }

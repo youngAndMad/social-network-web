@@ -2,25 +2,52 @@
   <div class="row">
     <div class="col-md-3 border-right">
       <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-        <tui-avatar
-          fallback="tuiIconUserLarge"
-          new
-          class="tui-space_left-3 avatar"
-          [avatarUrl]="imageLink(this.user.avatar)"
-          [size]="'xxl'"
-          title="Change profile image"
-          *ngIf="user !== undefined && user !== null"
-          (click)="fileInput.click()"
+        <tui-hosted-dropdown
+          tuiDropdownAlign="right"
+          tuiDropdownHover
+          [content]="content"
+          [(open)]="open"
         >
-          <input
-            hidden
-            #fileInput
-            type="file"
-            class="w-full h-full"
-            accept="image/*"
-            (change)="onFileSelected($event)"
-          />
-        </tui-avatar>
+          <tui-avatar
+            fallback="tuiIconUserLarge"
+            new
+            class="tui-space_left-3 avatar"
+            [avatarUrl]="this.user.avatar ? imageLink(this.user.avatar) : ''"
+            [size]="'xxl'"
+            *ngIf="user !== undefined && user !== null"
+          >
+          </tui-avatar>
+          <tui-svg
+            src="tuiIconEdit"
+            tuiHostedDropdownHost
+            tuiTab
+            id="tuiHostedDropdownHost"
+            (tui-tab-activate.stop)="(0)"
+          >
+          </tui-svg>
+
+          <ng-template #content>
+            <tui-data-list (click)="onClick()">
+              <button tuiOption (click)="fileInput.click()">
+                <tui-svg src="tuiIconUpload">
+                  <input
+                    hidden
+                    #fileInput
+                    type="file"
+                    class="w-full h-full"
+                    accept="image/*"
+                    (change)="onFileSelected($event)"
+                  />
+                </tui-svg>
+                Upload image
+              </button>
+              <button tuiOption>
+                <tui-svg src="tuiIconDelete" title="Delete image"></tui-svg>
+                Delete image
+              </button>
+            </tui-data-list>
+          </ng-template>
+        </tui-hosted-dropdown>
       </div>
     </div>
     <form [formGroup]="userForm" *ngIf="user !== undefined && user !== null">

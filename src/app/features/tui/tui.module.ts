@@ -17,13 +17,18 @@ import { TuiAvatarModule } from '@taiga-ui/kit';
 import { TuiDataListWrapperModule } from '@taiga-ui/kit';
 import { CommonModule } from '@angular/common';
 import { TuiCalendarModule } from '@taiga-ui/core';
+import { TuiDropdownModule } from '@taiga-ui/core';
 import { TuiSelectModule } from '@taiga-ui/kit';
 import { TuiPromptModule } from '@taiga-ui/kit';
 import { TuiInputDateModule } from '@taiga-ui/kit';
 import { TuiDialogModule } from '@taiga-ui/core';
+import { TuiDataListModule } from '@taiga-ui/core';
+import { TuiHostedDropdownModule } from '@taiga-ui/core';
 
 const modules: any[] = [
   TuiLinkModule,
+  TuiHostedDropdownModule,
+  TuiDataListModule,
   TuiPromptModule,
   TuiSelectModule,
   CommonModule,
@@ -46,6 +51,7 @@ const modules: any[] = [
   TuiPaginationModule,
   TuiAvatarModule,
   TuiDialogModule,
+  TuiDropdownModule,
 ];
 
 @NgModule({
