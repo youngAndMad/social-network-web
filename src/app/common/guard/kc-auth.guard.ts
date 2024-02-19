@@ -35,13 +35,7 @@ export class AuthGuard extends KeycloakAuthGuard {
 
     this.userService.isExists(email).subscribe((res) => {
       if (res.exists === false) {
-        this.router
-          .navigate(['/user/profile'], {
-            queryParams: {
-              isRegistered: false,
-            },
-          })
-          .then();
+        this.router.navigate(['/user/profile']).then();
       }
     });
 

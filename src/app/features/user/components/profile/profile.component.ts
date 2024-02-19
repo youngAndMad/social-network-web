@@ -1,19 +1,9 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnInit,
-  Inject,
-  ChangeDetectorRef,
-} from '@angular/core';
+import { Component, OnInit, Inject, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user';
 import { ToastrService } from 'ngx-toastr';
-import {
-  TuiAlertService,
-  TuiDialogService,
-  TuiDialogContext,
-} from '@taiga-ui/core';
+import { TuiDialogService, TuiDialogContext } from '@taiga-ui/core';
 import { PolymorpheusContent } from '@tinkoff/ng-polymorpheus';
 import { FileService } from 'src/app/features/file/services/file.service';
 import { Subscription } from 'rxjs';
@@ -23,7 +13,6 @@ import { Router } from '@angular/router';
   selector: 'sp-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileComponent implements OnInit {
   userForm: FormGroup;
@@ -33,6 +22,22 @@ export class ProfileComponent implements OnInit {
   open = false;
   index = 0;
 
+  onFileDrop(event: any) {
+    for (const file of event.target.files) {
+      // Handle dropped files here
+      console.log('Dropped file:', file);
+    }
+  }
+
+  onFileOver(event: any) {
+    // Handle file drag over event
+    console.log('File over:', event);
+  }
+
+  onFileLeave(event: any) {
+    // Handle file drag leave event
+    console.log('File leave:', event);
+  }
   constructor(
     private readonly _fb: FormBuilder,
     private readonly _userService: UserService,
@@ -40,7 +45,6 @@ export class ProfileComponent implements OnInit {
 
     private readonly _toast: ToastrService,
     @Inject(TuiDialogService) private readonly _dialogs: TuiDialogService,
-    @Inject(TuiAlertService) private readonly _alerts: TuiAlertService,
     private readonly _cdr: ChangeDetectorRef,
     private readonly _router: Router
   ) {}
@@ -56,6 +60,7 @@ export class ProfileComponent implements OnInit {
   onClick(): void {
     this.open = false;
     this.index = 1;
+    this._cdr.detectChanges();
   }
 
   initializeForm(): void {
@@ -78,7 +83,7 @@ export class ProfileComponent implements OnInit {
   submitForm() {
     this._userService
       .update(this.userForm.value, this.user.id)
-      .subscribe((res) => {
+      .subscribe(() => {
         this._toast.success('Profile updated successfulyy', '');
       });
   }
@@ -92,19 +97,28 @@ export class ProfileComponent implements OnInit {
       .subscribe();
   }
 
-  closeDialog = () => this.modalSubscription.unsubscribe();
-
-  deleteAccount = () => {
+  deleteAccount() {
     this._userService.delete(this.user.id).subscribe(() => {
       this.closeDialog();
       localStorage.clear();
       this._router.navigate(['/news']);
     });
+  }
+
+  closeDialog = () => this.modalSubscription.unsubscribe();
+
+  deleteAvatar = () => {
+    this._userService.deleteAvatar(this.user.id).subscribe(console.log);
   };
 
   onFileSelected(event: any) {
+    console.log('onFileSelected', event);
+
     const file = event.target.files[0];
+    console.log('file selected', file.name);
+
     if (file) {
+      console.log('file selected', file.name);
       this._userService.uploadAvatar(file, this.user.id).subscribe(() => {
         this._toast.success('Profile updated successfully', '', {
           timeOut: 2000,

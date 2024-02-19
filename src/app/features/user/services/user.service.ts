@@ -43,4 +43,6 @@ export class UserService {
 
   update = (req: any, id: number): Observable<any> =>
     this._http.put(`/api/v1/user/${id}`, req);
+
+  deleteAvatar = (id: number) => this._http.delete(`/api/v1/user/${id}/avatar`);
 }

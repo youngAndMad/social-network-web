@@ -5,47 +5,71 @@
         <tui-hosted-dropdown
           tuiDropdownAlign="right"
           tuiDropdownHover
-          [content]="content"
+          [content]="avatarOptions"
           [(open)]="open"
+          class="flex items-end justify-between"
         >
           <tui-avatar
             fallback="tuiIconUserLarge"
             new
             class="tui-space_left-3 avatar"
-            [avatarUrl]="this.user.avatar ? imageLink(this.user.avatar) : ''"
+            [avatarUrl]="imageLink(this.user.avatar)"
             [size]="'xxl'"
             *ngIf="user !== undefined && user !== null"
           >
           </tui-avatar>
-          <tui-svg
-            src="tuiIconEdit"
-            tuiHostedDropdownHost
-            tuiTab
-            id="tuiHostedDropdownHost"
-            (tui-tab-activate.stop)="(0)"
-          >
-          </tui-svg>
-
-          <ng-template #content>
-            <tui-data-list (click)="onClick()">
-              <button tuiOption (click)="fileInput.click()">
-                <tui-svg src="tuiIconUpload">
-                  <input
-                    hidden
-                    #fileInput
-                    type="file"
-                    class="w-full h-full"
-                    accept="image/*"
-                    (change)="onFileSelected($event)"
-                  />
-                </tui-svg>
-                Upload image
+          <div class="-mt-3">
+            <tui-svg
+              src="tuiIconEdit"
+              tuiHostedDropdownHost
+              tuiTab
+              class="float-right ml-2"
+              title="Manage avatar image"
+              (tui-tab-activate.stop)="(0)"
+            >
+            </tui-svg>
+          </div>
+          <ng-template #avatarOptions>
+            <div class="flex flex-col">
+              <button tuiOption (click)="fileInput.click()" class="p-1">
+                <tui-svg src="tuiIconUpload"> </tui-svg>
+                {{
+                  this.user.avatar
+                    ? "Update profile image"
+                    : "Upload profile image"
+                }}
+                <input
+                  #fileInput
+                  type="file"
+                  class="w-full h-full hidden"
+                  accept="image/*"
+                  (change)="onFileSelected($event)"
+                />
               </button>
-              <button tuiOption>
-                <tui-svg src="tuiIconDelete" title="Delete image"></tui-svg>
+              <button
+                tuiOption
+                class="p-1"
+                *ngIf="this.user.avatar"
+                (click)="
+                  showDialog(
+                    deleteAvatarModal,
+                    'Are you sure to remove avatar image?'
+                  )
+                "
+              >
+                <tui-svg src="tuiIconDelete" title="Delete image">
+                  <ng-template #deleteAvatarModal let-observed>
+                    <sp-confirm
+                      (onConfirm)="deleteAvatar()"
+                      (onReject)="closeDialog()"
+                      (finally)="closeDialog()"
+                    >
+                    </sp-confirm>
+                  </ng-template>
+                </tui-svg>
                 Delete image
               </button>
-            </tui-data-list>
+            </div>
           </ng-template>
         </tui-hosted-dropdown>
       </div>
@@ -166,30 +190,19 @@
       tuiButton
       class="tui-space_right-3 tui-space_bottom-3"
       size="m"
-      (click)="showDialog(deleteAccoutModal, 'Are you sure to delete account?')"
+      (click)="
+        showDialog(deleteAccountModal, 'Are you sure to delete account?')
+      "
     >
       Delete Account
     </button>
+    <ng-template #deleteAccountModal>
+      <sp-confirm
+        (onReject)="closeDialog()"
+        (finally)="closeDialog()"
+        (onConfirm)="deleteAccount()"
+      >
+      </sp-confirm>
+    </ng-template>
   </div>
-  <ng-template #deleteAccoutModal let-observe>
-    <button
-      size="m"
-      tuiButton
-      appearance="accent"
-      type="button"
-      class="tui-space_right-3"
-      (click)="deleteAccount()"
-    >
-      Yes
-    </button>
-    <button
-      size="m"
-      tuiButton
-      appearance="secondary"
-      type="button"
-      (click)="closeDialog()"
-    >
-      Cancel
-    </button>
-  </ng-template>
 </div>

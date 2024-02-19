@@ -7,6 +7,6 @@ import { ConfirmComponent } from './confirm/confirm.component';
 @NgModule({
   declarations: [AvatarComponent, ConfirmComponent],
   imports: [CommonModule, TuiModule],
-  exports: [AvatarComponent],
+  exports: [AvatarComponent, ConfirmComponent],
 })
 export class UiModule {}
