@@ -1,0 +1,22 @@
+<form class="container" [formGroup]="userSearchForm">
+  <tui-input
+    *tuiLet="userSuggestions$ | async as userSuggestions"
+    class="b-form"
+    formControlName="query"
+  >
+    Enter username
+    <ng-container *ngIf="userSuggestions?.length">
+      <tui-data-list *tuiDataList>
+        <button *ngFor="let user of userSuggestions" tuiOption [value]="user">
+          <tui-avatar
+            size="xs"
+            fallback="tuiIconUserLarge"
+            class="avatar"
+            [avatarUrl]="imageLink(user.avatar)"
+          ></tui-avatar>
+          <span class="name">{{ user.preferredUsername }}</span>
+        </button>
+      </tui-data-list>
+    </ng-container>
+  </tui-input>
+</form>

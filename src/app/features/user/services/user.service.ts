@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { User } from '../models/user';
 import { UserSearchCriteria } from '../models/dto/user-search-criteria';
 import { RegistrationDto } from '../models/dto/registration-dto';
+import { UserSuggestionDto } from '../models/dto/user-suggestion.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -15,15 +16,17 @@ export class UserService {
   delete = (id: number): Observable<any> =>
     this._http.delete(`/api/v1/user/${id}`);
 
-  fetchSuggestions = (query: string): Observable<User[]> =>
-    this._http.get<User[]>('/api/v1/user/suggest', { params: { query } });
+  fetchSuggestions = (query: string): Observable<UserSuggestionDto[]> =>
+    this._http.get<UserSuggestionDto[]>('/api/v1/user/suggest', {
+      params: { query },
+    });
 
   search = (
     criteria: UserSearchCriteria,
     page: number,
     pageSize: number
-  ): Observable<User[]> =>
-    this._http.post<User[]>('/api/v1/user/search', criteria, {
+  ): Observable<UserSuggestionDto[]> =>
+    this._http.post<UserSuggestionDto[]>('/api/v1/user/search', criteria, {
       params: { page, pageSize },
     });
 
