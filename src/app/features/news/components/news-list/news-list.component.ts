@@ -12,7 +12,7 @@ export class NewsListComponent implements OnInit {
   length = 0;
   newsPage: Page<News>;
   page = 0;
-  defaultPageSize = 2;
+  defaultPageSize = 2; // todo increase to 10
 
   constructor(
     private readonly _newsService: NewsService,

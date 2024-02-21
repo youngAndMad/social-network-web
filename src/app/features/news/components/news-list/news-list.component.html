@@ -1,5 +1,5 @@
 <div class="mt-20">
-  <sp-news-card *ngFor="let news of newsPage.content" [news]="news">
+  <sp-news-card *ngFor="let news of newsPage?.content" [news]="news">
   </sp-news-card>
   <tui-pagination
     [index]="page"

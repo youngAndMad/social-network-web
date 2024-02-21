@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProfileComponent } from './components/profile/profile.component';
 import { UiModule } from 'src/app/shared/ui/ui.module';
-import { ALL_TAIGA_UI_MODULES } from '../tui/Fall-taiga-modules';
+import { ALL_TAIGA_UI_MODULES } from '../tui/all-taiga-modules';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { ToastrModule } from 'ngx-toastr';

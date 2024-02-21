@@ -1,4 +1,5 @@
-import { ALL_TAIGA_UI_MODULES } from './../tui/Fall-taiga-modules';
+import { ALL_TAIGA_UI_MODULES } from '../tui/all-taiga-modules';
+import { UiModule } from 'src/app/shared/ui/ui.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NewsRoutingModule } from './news-routing.module';
@@ -11,6 +12,7 @@ import { NewsCardComponent } from './components/news-card/news-card.component';
   declarations: [CreateNewsComponent, NewsListComponent, NewsCardComponent],
   imports: [
     CommonModule,
+    UiModule,
     NewsRoutingModule,
     ReactiveFormsModule,
     FormsModule,

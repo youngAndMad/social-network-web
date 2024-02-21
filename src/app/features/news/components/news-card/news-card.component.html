@@ -1,28 +1,54 @@
-<h2>{{ news.title }}</h2>
-<tui-carousel
-  [duration]="4000"
-  [(index)]="index"
-  *ngIf="news?.files?.length! > 0"
->
-  <ng-container *ngFor="let file of news.files">
-    <tui-island *tuiItem>
-      <img
-        [src]="downloadFileUrl(file)"
-        alt="_blank"
-        loading="lazy"
-        class="w-80 h-80"
-      />
-    </tui-island>
-  </ng-container>
-</tui-carousel>
-<tui-pagination
-  size="s"
-  class="pagination"
-  [length]="news.files.length"
-  [(index)]="index"
-></tui-pagination>
-<p>{{ news?.content }}</p>
-
-<p class="float-right">
-  {{ "Published at: " + (news.publishDate | date) }}
-</p>
+<div class="news-wrapper border pt-10" tuiPlatform="web">
+  <div tuiCardLarge tuiSurface="elevated">
+    <header tuiHeader>
+      <h2 tuiTitle>{{ news.title }}</h2>
+    </header>
+    <section>
+      <tui-carousel
+        [duration]="4000"
+        [(index)]="index"
+        *ngIf="news?.files?.length! > 0"
+      >
+        <ng-container *ngFor="let file of news.files">
+          <tui-island *tuiItem>
+            <img
+              [src]="downloadFileUrl(file)"
+              alt="_blank"
+              loading="lazy"
+              class="w-80 h-80"
+            />
+          </tui-island>
+        </ng-container>
+      </tui-carousel>
+      <tui-pagination
+        size="s"
+        class="pagination"
+        [length]="news.files.length"
+        [(index)]="index"
+      ></tui-pagination>
+      <div>{{ news?.content }}</div>
+      <div class="float-right">
+        <div>
+          {{ "Published at: " + (news.publishDate | date) }}
+        </div>
+        <button
+          appearance="accent"
+          tuiButton
+          type="button"
+          [size]="'xs'"
+          (click)="showDialog(deleteAttempt, 'Are you sure to delete news')"
+        >
+          Delete news
+          <ng-template #deleteAttempt>
+            <sp-confirm
+              (onConfirm)="deleteNews()"
+              (onReject)="closeDialog()"
+              (finally)="closeDialog()"
+            >
+            </sp-confirm>
+          </ng-template>
+        </button>
+      </div>
+    </section>
+  </div>
+</div>
