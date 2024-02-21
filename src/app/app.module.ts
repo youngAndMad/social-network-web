@@ -17,6 +17,7 @@ import { WebsocketService } from './common/service/websocket.service';
 import { ChatModule } from './features/chat/chat.module';
 import { UserModule } from './features/user/user.module';
 import { TuiModule } from './features/tui/tui.module';
+import { ChannelModule } from './features/channel/channel.module';
 import { LayoutModule } from './shared/layout/layout.module';
 
 @NgModule({
@@ -35,6 +36,7 @@ import { LayoutModule } from './shared/layout/layout.module';
     ChatModule,
     UserModule,
     TuiModule,
+    ChannelModule,
     LayoutModule,
   ],
   providers: [

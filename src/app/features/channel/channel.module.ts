@@ -3,12 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { ChannelRoutingModule } from './channel-routing.module';
 
-
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    ChannelRoutingModule
-  ]
+  imports: [CommonModule, ChannelRoutingModule],
 })
-export class ChannelModule { }
+export class ChannelModule {}
