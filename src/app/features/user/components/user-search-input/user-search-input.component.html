@@ -7,15 +7,30 @@
     Enter username
     <ng-container *ngIf="userSuggestions?.length">
       <tui-data-list *tuiDataList>
-        <button *ngFor="let user of userSuggestions" tuiOption [value]="user">
-          <tui-avatar
-            size="xs"
-            fallback="tuiIconUserLarge"
-            class="avatar"
-            [avatarUrl]="imageLink(user.avatar)"
-          ></tui-avatar>
-          <span class="name">{{ user.preferredUsername }}</span>
+        <button
+          *ngFor="let user of userSuggestions"
+          tuiOption
+          [value]="user"
+          class="w-full"
+        >
+          <!-- 
+   (mouseover)="toggleDropdown()"
+            (mouseout)="toggleDropdown()"          
+         -->
+          <div class="flex flex-row w-full justify-between">
+            <div class="name block">{{ user.preferredUsername }}</div>
+
+            <tui-avatar
+              size="xs"
+              fallback="tuiIconUserLarge"
+              class="avatar block"
+              [avatarUrl]="imageLink(user.avatar)"
+            ></tui-avatar>
+          </div>
         </button>
+        <!-- <div [@dropdownAnimation]="dropdownState">
+          hello world from danekerscode
+        </div> -->
       </tui-data-list>
     </ng-container>
   </tui-input>
