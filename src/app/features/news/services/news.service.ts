@@ -3,16 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { News } from '../models/news';
 import { Page } from 'src/app/common/model/page';
-import { FileService } from '../../file/services/file.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NewsService {
-  constructor(
-    private readonly _http: HttpClient,
-    private readonly _fileService: FileService
-  ) {}
+  constructor(private readonly _http: HttpClient) {}
 
   deleteNews = (id: number): Observable<any> => {
     return this._http.delete(`/api/v1/news/${id}`);
@@ -21,6 +17,13 @@ export class NewsService {
   getNewsById = (id: number): Observable<News> => {
     return this._http.get<News>(`/api/v1/news/${id}`);
   };
+
+  updateNews = (content: string, title: string, id: number): Observable<News> =>
+    this._http.patch<News>(
+      `/api/v1/news/${id}`,
+      {},
+      { params: { title, content } }
+    );
 
   paginate = (page: number, pageSize: number): Observable<Page<News>> => {
     return this._http.get<Page<News>>('/api/v1/news', {

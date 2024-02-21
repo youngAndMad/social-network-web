@@ -31,15 +31,55 @@
         <div>
           {{ "Published at: " + (news.publishDate | date) }}
         </div>
-        <button
-          appearance="accent"
-          tuiButton
-          type="button"
-          [size]="'xs'"
-          (click)="showDialog(deleteAttempt, 'Are you sure to delete news')"
+        <tui-svg
+          src="tuiIconEdit"
+          title="Edit news"
+          (click)="showDialog(editNewsModal, 'Edit news')"
         >
-          Delete news
-          <ng-template #deleteAttempt>
+          <ng-template #editNewsModal>
+            <form [formGroup]="newsUpdateForm" (ngSubmit)="updateNews()">
+              <tui-input formControlName="title">
+                Title
+                <input tuiTextfield [required]="true" />
+                <span class="tui-required"></span>
+              </tui-input>
+              <tui-input formControlName="content" class="pt-3">
+                Title
+                <input tuiTextfield [required]="true" />
+                <span class="tui-required"></span>
+              </tui-input>
+              <button
+                size="m"
+                tuiButton
+                type="submit"
+                class="tui-form__button pt-3"
+                [class.tui-skeleton_light]="false"
+                [class.tui-skeleton]="false"
+              >
+                Update news
+              </button>
+              <button
+                size="m"
+                tuiButton
+                appearance="accent"
+                type="reset"
+                class="tui-form__button pt-3"
+                [class.tui-skeleton_light]="false"
+                [class.tui-skeleton]="false"
+              >
+                Cancel
+              </button>
+            </form>
+          </ng-template>
+        </tui-svg>
+
+        <tui-svg
+          src="tuiIconXCircle"
+          title="Delete news "
+          (click)="
+            showDialog(deleteAttemptModal, 'Are you sure to delete news')
+          "
+          ><ng-template #deleteAttemptModal>
             <sp-confirm
               (onConfirm)="deleteNews()"
               (onReject)="closeDialog()"
@@ -47,7 +87,7 @@
             >
             </sp-confirm>
           </ng-template>
-        </button>
+        </tui-svg>
       </div>
     </section>
   </div>
