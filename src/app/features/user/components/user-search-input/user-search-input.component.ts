@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, filter, Observable } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, of, switchMap } from 'rxjs';
 import {
   trigger,
   state,
@@ -43,7 +43,9 @@ import { FileService } from 'src/app/features/file/services/file.service';
 })
 export class UserSearchInputComponent implements OnInit {
   userSearchForm: FormGroup;
-  userSuggestions$: Observable<UserSuggestionDto[]>;
+  userSuggestions$: BehaviorSubject<UserSuggestionDto[]> = new BehaviorSubject<
+    UserSuggestionDto[]
+  >([]);
   dropdownState: 'hidden' | 'visible' = 'hidden';
 
   constructor(
@@ -69,10 +71,16 @@ export class UserSearchInputComponent implements OnInit {
       .get('query')
       ?.valueChanges.pipe(
         distinctUntilChanged(),
-        filter((val: string) => val?.length >= 2)
+        switchMap((val: string) => {
+          if (val?.length >= 2) {
+            return this._userService.fetchSuggestions(val);
+          } else {
+            return of([]); // Return an empty array or null when query length is less than 2
+          }
+        })
       )
-      .subscribe((query) => {
-        this.userSuggestions$ = this._userService.fetchSuggestions(query);
+      .subscribe((suggestions) => {
+        this.userSuggestions$.next(suggestions);
         this._cdr.detectChanges();
       });
   }

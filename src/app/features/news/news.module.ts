@@ -1,19 +1,20 @@
+import { ALL_TAIGA_UI_MODULES } from './../tui/Fall-taiga-modules';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NewsRoutingModule } from './news-routing.module';
 import { CreateNewsComponent } from './components/create-news/create-news.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { TuiModule } from '../tui/tui.module';
 import { NewsListComponent } from './components/news-list/news-list.component';
+import { NewsCardComponent } from './components/news-card/news-card.component';
 
 @NgModule({
-  declarations: [CreateNewsComponent, NewsListComponent],
+  declarations: [CreateNewsComponent, NewsListComponent, NewsCardComponent],
   imports: [
     CommonModule,
     NewsRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    TuiModule,
+    ALL_TAIGA_UI_MODULES,
   ],
 })
 export class NewsModule {}

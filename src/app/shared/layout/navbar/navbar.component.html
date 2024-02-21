@@ -32,14 +32,15 @@
             *ngIf="loggedIn; else login"
           >
             <tui-svg src="tuiIconUser"> </tui-svg>
-            <a
+            <ul
               class="nav-link active"
               aria-current="page"
               style="margin-top: -5px"
               href="/user/profile"
               title="Profile"
-              >Profile</a
             >
+              Profile
+            </ul>
           </li>
           <ng-template #login>
             <li class="nav-item cursor-pointer flex justify-start text-center">

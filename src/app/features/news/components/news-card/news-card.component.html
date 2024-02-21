@@ -1,0 +1,28 @@
+<h2>{{ news.title }}</h2>
+<tui-carousel
+  [duration]="4000"
+  [(index)]="index"
+  *ngIf="news?.files?.length! > 0"
+>
+  <ng-container *ngFor="let file of news.files">
+    <tui-island *tuiItem>
+      <img
+        [src]="downloadFileUrl(file)"
+        alt="_blank"
+        loading="lazy"
+        class="w-80 h-80"
+      />
+    </tui-island>
+  </ng-container>
+</tui-carousel>
+<tui-pagination
+  size="s"
+  class="pagination"
+  [length]="news.files.length"
+  [(index)]="index"
+></tui-pagination>
+<p>{{ news?.content }}</p>
+
+<p>
+  {{ "Published at: " + (news.publishDate | date) }}
+</p>

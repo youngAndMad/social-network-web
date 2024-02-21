@@ -1,18 +1,9 @@
-<ng-container>
-  <div class="news-item" *ngFor="let news of newsPage?.content">
-    <h2>{{ news.title }}</h2>
-    <p>{{ news?.content }}</p>
-    <p class="published-date">Published at: {{ news.publishedAt | date }}</p>
-    <ul>
-      <li *ngFor="let file of news.files">
-        <img ngSrc="downloadFileUrl(file)" alt="_blank" loading="lazy" />
-      </li>
-    </ul>
-  </div>
-</ng-container>
-
-<tui-pagination
-  [index]="page"
-  [length]="length"
-  (indexChange)="goToPage($event)"
-></tui-pagination>
+<div class="mt-20">
+  <sp-news-card *ngFor="let news of newsPage.content" [news]="news">
+  </sp-news-card>
+  <tui-pagination
+    [index]="page"
+    [length]="length"
+    (indexChange)="goToPage($event)"
+  ></tui-pagination>
+</div>

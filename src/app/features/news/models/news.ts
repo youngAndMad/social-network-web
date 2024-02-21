@@ -6,5 +6,5 @@ export type News = {
   content: string;
   emailSending: string;
   files: FileMetadata[];
-  publishedAt: Date;
+  publishDate: Date;
 };
