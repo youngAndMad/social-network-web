@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
-import { AppUser } from '../model/profile';
+import { AppUser } from '../model/appuser';
 import { tick } from '@angular/core/testing';
 
 @Injectable({

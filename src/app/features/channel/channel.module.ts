@@ -2,9 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ChannelRoutingModule } from './channel-routing.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule, ChannelRoutingModule],
+  imports: [CommonModule, ChannelRoutingModule, HttpClientModule],
 })
 export class ChannelModule {}
