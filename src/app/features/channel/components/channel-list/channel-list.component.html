@@ -1,1 +1,11 @@
-<p>channel-list works!</p>
+<div class="mt-20">
+  <div *ngFor="let channel of channelPage?.content">
+    <h2>{{channel.name}}</h2>
+    <p>{{channel.type}}</p>
+  </div>
+  <tui-pagination
+    [index]="page"
+    [length]="length"
+    (indexChange)="refreshChannelPage($event)"
+  ></tui-pagination>
+</div>

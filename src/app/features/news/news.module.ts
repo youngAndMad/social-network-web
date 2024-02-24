@@ -9,14 +9,17 @@ import { NewsListComponent } from './components/news-list/news-list.component';
 import { NewsCardComponent } from './components/news-card/news-card.component';
 
 @NgModule({
-  declarations: [CreateNewsComponent, NewsListComponent, NewsCardComponent],
-  imports: [
-    CommonModule,
-    UiModule,
-    NewsRoutingModule,
-    ReactiveFormsModule,
-    FormsModule,
-    ALL_TAIGA_UI_MODULES,
-  ],
+    declarations: [CreateNewsComponent, NewsListComponent, NewsCardComponent],
+    imports: [
+        CommonModule,
+        UiModule,
+        NewsRoutingModule,
+        ReactiveFormsModule,
+        FormsModule,
+        ALL_TAIGA_UI_MODULES,
+    ],
+    exports: [
+        NewsCardComponent
+    ]
 })
 export class NewsModule {}

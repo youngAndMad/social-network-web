@@ -4,6 +4,8 @@ import { ChannelType } from '../models/enums/channel-type';
 import { Observable } from 'rxjs';
 import { Channel } from '../models/channel';
 import { AppUser } from 'src/app/common/model/appuser';
+import {Page} from "../../../common/model/page";
+import {News} from "../../news/models/news";
 
 @Injectable({
   providedIn: 'root',
@@ -40,4 +42,10 @@ export class ChannelService {
       params: { email },
     });
   }
+
+  paginate = (page: number, pageSize: number): Observable<Page<Channel>> => {
+    return this._http.get<Page<Channel>>('/api/v1/channel', {
+      params: { page, pageSize },
+    });
+  };
 }
