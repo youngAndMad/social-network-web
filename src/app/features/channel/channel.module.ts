@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { ALL_TAIGA_UI_MODULES } from '../tui/all-taiga-modules';
 import { ChannelRoutingModule } from './channel-routing.module';
 import { HttpClientModule } from '@angular/common/http';
-import { CreateChannelComponent } from './components/create-channel/create-channel.component';
 
 @NgModule({
-  declarations: [
-    CreateChannelComponent
+  declarations: [],
+  imports: [
+    CommonModule,
+    ChannelRoutingModule,
+    HttpClientModule,
+    ALL_TAIGA_UI_MODULES,
   ],
-  imports: [CommonModule, ChannelRoutingModule, HttpClientModule],
 })
 export class ChannelModule {}
