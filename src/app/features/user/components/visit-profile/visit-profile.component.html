@@ -1,0 +1,83 @@
+<div class="page-content page-container" id="page-content">
+  <div class="padding">
+    <div class="row container d-flex justify-content-center">
+      <div class="col-xl-6 col-md-12">
+        <div class="card user-card-full" *ngIf="!loading">
+          <div class="row m-l-0 m-r-0">
+            <div class="col-sm-4 bg-c-lite-green user-profile">
+              <div class="card-block text-center text-white">
+                <div class="mb-7 ml-10">
+                  <tui-avatar
+                    [avatarUrl]="user.avatar"
+                    new
+                    fallback="tuiIconUserLarge"
+                    [size]="'xl'"
+                    class="tui-space_left-3 avatar"
+                  >
+                  </tui-avatar>
+                </div>
+                <h6 class="f-w-600">{{ user.preferredUsername }}</h6>
+                <div class="">
+                  <tui-svg
+                    src="tuiIconUserPlus"
+                    [title]="
+                      isOutgoingSubscriber() === true
+                        ? 'Accept friend request'
+                        : 'Send friend request'
+                    "
+                    *ngIf="!isFriend() || isIncomingSubscriber()"
+                    (click)="dialogService.showDialog(friendModal, '')"
+                  >
+                    <ng-template #friendModal>
+                      Hello world from Danekerscode
+                      <sp-confirm
+                        (onReject)="dialogService.closeDialog()"
+                        (finally)="dialogService.closeDialog()"
+                        (onConfirm)="
+                          isIncomingSubscriber()
+                            ? acceptSubscription()
+                            : sendFriendRequest()
+                        "
+                      >
+                      </sp-confirm>
+                    </ng-template>
+                  </tui-svg>
+                  <tui-svg
+                    src="tuiIconUserX"
+                    title="Delete from friend list"
+                    *ngIf="isFriend()"
+                  >
+                  </tui-svg>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-8">
+              <div class="card-block">
+                <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <p class="m-b-10 f-w-600">Email</p>
+                    <h6 class="text-muted f-w-400">{{ user.email }}</h6>
+                  </div>
+                </div>
+                <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">
+                  Projects
+                </h6>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <p class="m-b-10 f-w-600">Recent</p>
+                    <h6 class="text-muted f-w-400">Sam Disuja</h6>
+                  </div>
+                  <div class="col-sm-6">
+                    <p class="m-b-10 f-w-600">Most Viewed</p>
+                    <h6 class="text-muted f-w-400">Dinoter husainm</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -9,12 +9,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ToastrModule } from 'ngx-toastr';
 import { UserSearchComponent } from './components/user-search/user-search.component';
 import { UserSearchInputComponent } from './components/user-search-input/user-search-input.component';
+import { VisitProfileComponent } from './components/visit-profile/visit-profile.component';
 
 @NgModule({
   declarations: [
     ProfileComponent,
     UserSearchComponent,
     UserSearchInputComponent,
+    VisitProfileComponent,
   ],
   imports: [
     CommonModule,

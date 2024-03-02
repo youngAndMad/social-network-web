@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ProfileComponent } from './components/profile/profile.component';
 import { AuthGuard } from 'src/app/common/guard/kc-auth.guard';
-import { UserSearchComponent } from './components/user-search/user-search.component';
 import { UserSearchInputComponent } from './components/user-search-input/user-search-input.component';
+import { VisitProfileComponent } from './components/visit-profile/visit-profile.component';
 
 const routes: Routes = [
   {
@@ -14,6 +14,10 @@ const routes: Routes = [
   {
     path: 'user/search',
     component: UserSearchInputComponent,
+  },
+  {
+    path: 'user/visit/:id',
+    component: VisitProfileComponent,
   },
 ];
 

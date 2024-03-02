@@ -72,6 +72,7 @@ export class UserSearchInputComponent implements OnInit {
       ?.valueChanges.pipe(
         distinctUntilChanged(),
         switchMap((val: string) => {
+          console.log(val);
           if (val?.length >= 2) {
             return this._userService.fetchSuggestions(val);
           } else {
@@ -80,6 +81,7 @@ export class UserSearchInputComponent implements OnInit {
         })
       )
       .subscribe((suggestions) => {
+        console.log(suggestions);
         this.userSuggestions$.next(suggestions);
         this._cdr.detectChanges();
       });

@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { TuiDialogService, TuiDialogContext } from '@taiga-ui/core';
 import { PolymorpheusContent } from '@tinkoff/ng-polymorpheus';
 import { FileService } from 'src/app/features/file/services/file.service';
-import { Subscription } from 'rxjs';
+import { Subscription, catchError, of } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
@@ -22,22 +22,6 @@ export class ProfileComponent implements OnInit {
   open = false;
   index = 0;
 
-  onFileDrop(event: any) {
-    for (const file of event.target.files) {
-      // Handle dropped files here
-      console.log('Dropped file:', file);
-    }
-  }
-
-  onFileOver(event: any) {
-    // Handle file drag over event
-    console.log('File over:', event);
-  }
-
-  onFileLeave(event: any) {
-    // Handle file drag leave event
-    console.log('File leave:', event);
-  }
   constructor(
     private readonly _fb: FormBuilder,
     private readonly _userService: UserService,
@@ -50,8 +34,8 @@ export class ProfileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this._userService.me().subscribe((user) => {
-      this.user = user;
+    this._userService.me().subscribe((userResponseDto) => {
+      this.user = userResponseDto.user;
       this.initializeForm();
       this._cdr.detectChanges();
     });
@@ -83,8 +67,14 @@ export class ProfileComponent implements OnInit {
   submitForm() {
     this._userService
       .update(this.userForm.value, this.user.id)
+      .pipe(
+        catchError((error) => {
+          this._toast.error(error.message);
+          return of();
+        })
+      )
       .subscribe(() => {
-        this._toast.success('Profile updated successfulyy', '');
+        this._toast.success('Profile updated successfully');
       });
   }
 
