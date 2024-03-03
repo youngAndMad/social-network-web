@@ -30,5 +30,6 @@ import { VisitProfileComponent } from './components/visit-profile/visit-profile.
       maxOpened: 5,
     }),
   ],
+  exports: [UserSearchInputComponent],
 })
 export class UserModule {}

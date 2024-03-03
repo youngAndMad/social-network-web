@@ -18,6 +18,7 @@ const routes: Routes = [
   {
     path: 'user/visit/:id',
     component: VisitProfileComponent,
+    canActivate: [AuthGuard],
   },
 ];
 

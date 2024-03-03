@@ -12,11 +12,9 @@
           tuiOption
           [value]="user"
           class="w-full"
+          [title]="'Visit profile of' + user.preferredUsername"
+          (click)="navigateToVisitPage(user)"
         >
-          <!-- 
-   (mouseover)="toggleDropdown()"
-            (mouseout)="toggleDropdown()"          
-         -->
           <div class="flex flex-row w-full justify-between">
             <div class="name block">{{ user.preferredUsername }}</div>
 
@@ -28,10 +26,23 @@
             ></tui-avatar>
           </div>
         </button>
-        <!-- <div [@dropdownAnimation]="dropdownState">
-          hello world from danekerscode
-        </div> -->
       </tui-data-list>
     </ng-container>
   </tui-input>
 </form>
+<!-- <label>
+  Search users:
+  <tui-combo-box
+    [formControl]="query"
+    [stringify]="stringify"
+    [tuiTextfieldLabelOutside]="true"
+    class="w-full"
+  >
+    User
+    <tui-data-list-wrapper
+      *tuiDataList
+      [itemContent]="stringify | tuiStringifyContent"
+      [items]="userSuggestions$ | async"
+    ></tui-data-list-wrapper>
+  </tui-combo-box>
+</label> -->

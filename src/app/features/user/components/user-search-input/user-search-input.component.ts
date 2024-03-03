@@ -1,58 +1,28 @@
+import { UserSuggestionDto } from './../../models/dto/user-suggestion.dto';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { BehaviorSubject, distinctUntilChanged, of, switchMap } from 'rxjs';
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition,
-} from '@angular/animations';
-import { UserSuggestionDto } from '../../models/dto/user-suggestion.dto';
 import { UserService } from '../../services/user.service';
 import { FileService } from 'src/app/features/file/services/file.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'sp-user-search-input',
   templateUrl: './user-search-input.component.html',
   styleUrls: ['./user-search-input.component.scss'],
-  animations: [
-    trigger('dropdownAnimation', [
-      state(
-        'hidden',
-        style({
-          height: '0',
-          opacity: '0',
-          overflow: 'hidden',
-          zIndex: '-1',
-        })
-      ),
-      state(
-        'visible',
-        style({
-          height: '*',
-          opacity: '1',
-          overflow: 'visible',
-          zIndex: '10000',
-        })
-      ),
-      transition('hidden => visible', animate('300ms ease-in')),
-      transition('visible => hidden', animate('300ms ease-out')),
-    ]),
-  ],
 })
 export class UserSearchInputComponent implements OnInit {
   userSearchForm: FormGroup;
   userSuggestions$: BehaviorSubject<UserSuggestionDto[]> = new BehaviorSubject<
     UserSuggestionDto[]
   >([]);
-  dropdownState: 'hidden' | 'visible' = 'hidden';
 
   constructor(
     private readonly _fb: FormBuilder,
     private readonly _userService: UserService,
     private readonly _cdr: ChangeDetectorRef,
-    private readonly _fileService: FileService
+    private readonly _fileService: FileService,
+    private readonly _router: Router
   ) {}
 
   ngOnInit(): void {
@@ -62,9 +32,9 @@ export class UserSearchInputComponent implements OnInit {
     this.fetchSuggestions();
   }
 
-  toggleDropdown = () =>
-    (this.dropdownState =
-      this.dropdownState === 'hidden' ? 'visible' : 'hidden');
+  stringify(suggestion: UserSuggestionDto) {
+    return suggestion.preferredUsername;
+  }
 
   fetchSuggestions() {
     this.userSearchForm
@@ -88,4 +58,10 @@ export class UserSearchInputComponent implements OnInit {
   }
 
   imageLink = (url: string) => this._fileService.generateDownloadUrl(url);
+
+  navigateToVisitPage(suggestion: UserSuggestionDto) {
+    this.userSearchForm.reset();
+
+    this._router.navigate(['/user/visit/', suggestion.id]);
+  }
 }

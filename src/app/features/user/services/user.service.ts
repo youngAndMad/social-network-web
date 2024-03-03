@@ -12,7 +12,20 @@ import { UserResponseDto } from '../models/dto/user-response.dto';
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private readonly _http: HttpClient) {}
+  private currentUser$: BehaviorSubject<UserResponseDto> =
+    new BehaviorSubject<UserResponseDto>(null!);
+
+  constructor(private readonly _http: HttpClient) {
+    this.refreshUserState();
+  }
+
+  get currentUser() {
+    return this.currentUser$.asObservable();
+  }
+
+  refreshUserState() {
+    this.me().subscribe((user) => this.currentUser$.next(user));
+  }
 
   me = (): Observable<UserResponseDto> => {
     return this._http.get<UserResponseDto>('/api/v1/user/me').pipe(

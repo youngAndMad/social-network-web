@@ -1,3 +1,4 @@
+import { RelationDto } from './../../models/dto/relation-dto';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { User } from '../../models/user';
@@ -46,9 +47,10 @@ export class VisitProfileComponent implements OnInit {
           console.log('user', this.user);
         });
     });
-
-    this.currentUser = JSON.parse(localStorage.getItem('user-response')!);
-    console.log('current ', this.currentUser);
+    this._userService.currentUser.subscribe((user) => {
+      this.currentUser = user;
+      console.log('current user', this.currentUser);
+    });
   }
 
   isFriend = () =>
@@ -66,18 +68,54 @@ export class VisitProfileComponent implements OnInit {
       (incomingSubscription) => incomingSubscription.user.id === this.user.id
     );
 
-  isOutgoingSubscriber = () =>
-    this.currentUser?.relations.outgoingSubscriptions.some(
+  isOutgoingSubscriber = () => {
+    return this.currentUser?.relations.outgoingSubscriptions.some(
       (outgoingSubscription) => outgoingSubscription.user.id === this.user.id
     );
+  };
 
   acceptSubscription() {
-    console.log('acceptSubscription');
-  }
-  sendFriendRequest() {
     this._relationService
-      .sendFriendRequest(this.currentUser!.user.id, this.user.id)
-      .subscribe();
-    console.log('sendFriendRequest');
+      .addFriendship(this.user.id, this.currentUser!.user.id)
+      .subscribe(() => {
+        this._userService.refreshUserState();
+        this._toast.success(`Friendship with ${this.user.preferredUsername}`);
+      });
+  }
+  subscribeUser() {
+    this._relationService
+      .subscribeUser(this.currentUser!.user.id, this.user.id)
+      .subscribe(() => {
+        this._userService.refreshUserState();
+        this._toast.success(`New subscription ${this.user.preferredUsername}`);
+      });
+  }
+
+  unsubscribeUser() {
+    let subscription = this.getRelation(
+      this.currentUser!.relations.outgoingSubscriptions
+    );
+
+    this._relationService.deleteSubscription(subscription!.id).subscribe(() => {
+      this._userService.refreshUserState();
+      this._toast.success(`Unsubscribed ${this.user.preferredUsername}`);
+    });
+  }
+
+  deleteFromUserList() {
+    this._relationService
+      .deleteFriendship(
+        this.getRelation(this.currentUser?.relations.friends || [])!.id,
+        this.currentUser!.user.id
+      )
+      .subscribe(() => {
+        this._userService.refreshUserState();
+        this._toast.success(
+          `Deleted from user list ${this.user.preferredUsername}`
+        );
+      });
+  }
+  getRelation(relations: RelationDto[]): RelationDto | undefined {
+    return relations.find((relation) => relation.user.id === this.user.id);
   }
 }

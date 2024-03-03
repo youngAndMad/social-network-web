@@ -19,24 +19,46 @@
                 <h6 class="f-w-600">{{ user.preferredUsername }}</h6>
                 <div class="">
                   <tui-svg
-                    src="tuiIconUserPlus"
-                    [title]="
-                      isOutgoingSubscriber() === true
-                        ? 'Accept friend request'
-                        : 'Send friend request'
+                    src="tuiIconUserX"
+                    title="Unsubscribe user"
+                    *ngIf="isOutgoingSubscriber() === true"
+                    (click)="
+                      dialogService.showDialog(
+                        unsubscribeUserModal,
+                        'Unsubscribe user?'
+                      )
                     "
-                    *ngIf="!isFriend() || isIncomingSubscriber()"
-                    (click)="dialogService.showDialog(friendModal, '')"
+                  >
+                    <ng-template #unsubscribeUserModal>
+                      <sp-confirm
+                        (onReject)="dialogService.closeDialog()"
+                        (finally)="dialogService.closeDialog()"
+                        (onConfirm)="unsubscribeUser()"
+                      >
+                      </sp-confirm>
+                    </ng-template>
+                  </tui-svg>
+                  <tui-svg
+                    src="tuiIconUserPlus"
+                    [title]="'Accept friend request'"
+                    *ngIf="isIncomingSubscriber()"
+                    (click)="
+                      dialogService.showDialog(
+                        friendModal,
+                        isIncomingSubscriber()
+                          ? 'Accept subscription?'
+                          : 'Subscribe user'
+                      )
+                    "
                   >
                     <ng-template #friendModal>
-                      Hello world from Danekerscode
                       <sp-confirm
                         (onReject)="dialogService.closeDialog()"
                         (finally)="dialogService.closeDialog()"
                         (onConfirm)="
                           isIncomingSubscriber()
                             ? acceptSubscription()
-                            : sendFriendRequest()
+                            : subscribeUser()
                         "
                       >
                       </sp-confirm>
@@ -46,7 +68,45 @@
                     src="tuiIconUserX"
                     title="Delete from friend list"
                     *ngIf="isFriend()"
+                    (click)="
+                      dialogService.showDialog(
+                        deleteFriend,
+                        'Delete user from friend list'
+                      )
+                    "
                   >
+                    <ng-template #deleteFriend>
+                      <sp-confirm
+                        (onReject)="dialogService.closeDialog()"
+                        (finally)="dialogService.closeDialog()"
+                        (onConfirm)="deleteFromUserList()"
+                      >
+                      </sp-confirm>
+                    </ng-template>
+                  </tui-svg>
+                  <tui-svg
+                    src="tuiIconUserPlus"
+                    title="Send friend request"
+                    *ngIf="
+                      !isFriend() &&
+                      !isOutgoingSubscriber() &&
+                      !isIncomingSubscriber()
+                    "
+                    (click)="
+                      dialogService.showDialog(
+                        sendFriendRequestModal,
+                        'Send friend request'
+                      )
+                    "
+                  >
+                    <ng-template #sendFriendRequestModal>
+                      <sp-confirm
+                        (onReject)="dialogService.closeDialog()"
+                        (finally)="dialogService.closeDialog()"
+                        (onConfirm)="subscribeUser()"
+                      >
+                      </sp-confirm>
+                    </ng-template>
                   </tui-svg>
                 </div>
               </div>
