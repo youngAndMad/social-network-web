@@ -1,0 +1,14 @@
+<div *ngIf="channelsPage">
+  <div *ngFor="let channel of channelsPage.content" class="channel-card">
+    <img [src]="channel.avatarUrl" alt="{{ channel.name }}" class="channel-avatar">
+    <div class="channel-info">
+      <h2 class="channel-name">{{ channel.name }}</h2>
+      <p class="channel-type">{{ channel.channelType }}</p>
+    </div>
+  </div>
+
+  <div class="pagination-buttons">
+    <button (click)="goToPage(page - 1)" [disabled]="page === 0" class="pagination-button">Previous</button>
+    <button (click)="goToPage(page + 1)" [disabled]="page === channelsPage.totalPages - 1" class="pagination-button">Next</button>
+  </div>
+</div>
