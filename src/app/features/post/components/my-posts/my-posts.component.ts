@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { filter } from 'rxjs';
 import { UserResponseDto } from 'src/app/features/user/models/dto/user-response.dto';
@@ -19,7 +19,8 @@ export class MyPostsComponent implements OnInit {
   constructor(
     private readonly _postService: PostService,
     private readonly _toastr: ToastrService,
-    private readonly _userService: UserService
+    private readonly _userService: UserService,
+    private readonly _cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -33,6 +34,8 @@ export class MyPostsComponent implements OnInit {
           .subscribe((data) => {
             this.currentUserPosts = data;
             console.log(this.currentUserPosts);
+
+            this._cdr.detectChanges();
           });
       });
   }

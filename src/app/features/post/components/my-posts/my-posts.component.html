@@ -1,1 +1,28 @@
-<p>my-posts works!</p>
+<div *ngFor="let post of currentUserPosts" class="mt-20">
+  <tui-card>
+    <h2>{{ post.content }}</h2>
+    <p>{{ post.type }}</p>
+    <div *ngFor="let comment of post.comments">
+      <tui-badge>{{ comment.content }}</tui-badge>
+    </div>
+    <div *ngFor="let reaction of post.reactions">
+      <tui-badge>{{ reaction.reactionType }}</tui-badge>
+    </div>
+  </tui-card>
+</div>
+
+<div class="flex justify-center items-start h-screen mt-20">
+  <div *ngIf="currentUserPosts.length === 0" class="text-center">
+    <p class="text-2xl">Your post list is empty</p>
+    <a
+      tuiLink
+      class="text-lg mt-4"
+      routerLink="/post/publish"
+      [queryParams]="{
+        authorId: this.user.user.id,
+        postType: 'USER_PROFILE_POST'
+      }"
+      >Publish first post</a
+    >
+  </div>
+</div>
