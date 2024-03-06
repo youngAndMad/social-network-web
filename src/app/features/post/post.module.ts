@@ -7,10 +7,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { PostRoutingModule } from './post-routing.module';
 import { CreatePostComponent } from './components/create-post/create-post.component';
+import { MyPostsComponent } from './components/my-posts/my-posts.component';
 
 @NgModule({
   declarations: [
-    CreatePostComponent
+    CreatePostComponent,
+    MyPostsComponent
   ],
   imports: [
     CommonModule,

@@ -32,11 +32,11 @@ export class AuthGuard extends KeycloakAuthGuard {
     const idTokenParsed = this.keycloak.getKeycloakInstance().idTokenParsed!;
     const email = idTokenParsed['email'];
 
-    this.userService.isExists(email).subscribe((res) => {
-      if (res.exists === false) {
-        this.router.navigate(['/user/profile']).then();
-      }
-    });
+    // this.userService.isExists(email).subscribe((res) => {
+    //   if (res.exists === false) {
+    //     this.router.navigate(['/user/profile']).then();
+    //   }
+    // });
 
     return this.authenticated;
   }

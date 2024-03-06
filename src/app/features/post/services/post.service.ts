@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { PostType } from '../models/enum/post-type';
+import { Post } from '../models/post';
+import { PostType } from './../models/enum/post-type';
 
 @Injectable({
   providedIn: 'root',
@@ -30,5 +31,11 @@ export class PostService {
   deletePost = (id: number): Observable<any> =>
     this._http.delete(`/api/v1/post/${id}`);
 
-  // authorPosts = (authorId:number) :  
+  authorPosts = (authorId: number, postType: PostType): Observable<Post[]> =>
+    this._http.get<Post[]>('/api/v1/post', {
+      params: {
+        ownerID: authorId,
+        postType: postType,
+      },
+    });
 }
