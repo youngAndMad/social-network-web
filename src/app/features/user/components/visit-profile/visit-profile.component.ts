@@ -1,13 +1,14 @@
-import { RelationDto } from './../../models/dto/relation-dto';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { User } from '../../models/user';
-import { UserService } from '../../services/user.service';
-import { catchError, finalize, of } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { UserResponseDto } from '../../models/dto/user-response.dto';
+import { catchError, finalize, of } from 'rxjs';
 import { DialogService } from 'src/app/common/service/dialog.service';
+import { ChatService } from 'src/app/features/chat/services/chat.service';
+import { UserResponseDto } from '../../models/dto/user-response.dto';
+import { User } from '../../models/user';
 import { RelationService } from '../../services/relation.service';
+import { UserService } from '../../services/user.service';
+import { RelationDto } from './../../models/dto/relation-dto';
 
 @Component({
   selector: 'sp-visit-profile',
@@ -24,7 +25,9 @@ export class VisitProfileComponent implements OnInit {
     private readonly _userService: UserService,
     private readonly _toast: ToastrService,
     public readonly dialogService: DialogService,
-    private readonly _relationService: RelationService
+    private readonly _relationService: RelationService,
+    private readonly _chatService: ChatService,
+    private readonly _router: Router
   ) {}
 
   ngOnInit(): void {
@@ -50,6 +53,17 @@ export class VisitProfileComponent implements OnInit {
     this._userService.currentUser.subscribe((user) => {
       this.currentUser = user;
       console.log('current user', this.currentUser);
+    });
+  }
+
+  createChatAndNavigate() {
+    this._chatService.createPrivateChat(this.user.email).subscribe((chat) => {
+      this._router.navigate(['/my/chats/'], {
+        queryParams: {
+          active: chat.id,
+          isEmpty: chat.messages === null || chat.messages.length === 0,
+        },
+      });
     });
   }
 

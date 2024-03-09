@@ -4,12 +4,13 @@ import { ChatComponent } from './components/chat/chat.component';
 
 const routes: Routes = [
   {
-    path: 'chats', component: ChatComponent
-  }
+    path: 'my/chats',
+    component: ChatComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ChatRoutingModule { }
+export class ChatRoutingModule {}

@@ -17,7 +17,13 @@
                   </tui-avatar>
                 </div>
                 <h6 class="f-w-600">{{ user.preferredUsername }}</h6>
-                <div class="">
+                <div class="icon_list">
+                  <tui-svg
+                    src="tuiIconMessageCircle"
+                    title="Chat with user"
+                    (click)="createChatAndNavigate()"
+                  >
+                  </tui-svg>
                   <tui-svg
                     src="tuiIconUserX"
                     title="Unsubscribe user"
