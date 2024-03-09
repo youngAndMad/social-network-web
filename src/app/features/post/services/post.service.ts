@@ -19,11 +19,11 @@ export class PostService {
     let formData = new FormData();
 
     files.forEach((file) => {
-      formData.append('files', file);
+      formData.append('file', file);
     });
     formData.append('type', type);
     formData.append('content', content);
-    formData.append('authorId', authorId.toString());
+    formData.append('ownerID', authorId.toString());
 
     return this._http.post('/api/v1/post', formData);
   };

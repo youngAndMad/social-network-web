@@ -1,0 +1,29 @@
+<div class="posts_wrapper border pt-10" tuiPlatform="web">
+  <div tuiCardLarge tuiSurface="elevated">
+    <section>
+      <tui-carousel
+        [duration]="4000"
+        [(index)]="index"
+        *ngIf="post?.files?.length! > 0"
+      >
+        <ng-container *ngFor="let file of post.files">
+          <tui-island *tuiItem>
+            <img
+              [src]="downloadUrl(file.url)"
+              alt="_blank"
+              loading="lazy"
+              class="w-80 h-80"
+            />
+          </tui-island>
+        </ng-container>
+      </tui-carousel>
+    </section>
+  </div>
+  <h2>{{ post.content }}</h2>
+  <div *ngFor="let comment of post.comments">
+    <tui-badge>{{ comment.content }}</tui-badge>
+  </div>
+  <div *ngFor="let reaction of post.reactions">
+    <tui-badge>{{ reaction.reactionType }}</tui-badge>
+  </div>
+</div>

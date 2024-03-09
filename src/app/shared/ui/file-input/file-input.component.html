@@ -1,0 +1,36 @@
+<tui-input-files [accept]="accept" [multiple]="multiple">
+  <div class="content">
+    <ng-template let-dragged>
+      <tui-marker-icon
+        mode="link"
+        src="tuiIconUploadCloudLarge"
+      ></tui-marker-icon>
+      <div>
+        Drag and drop file here or
+        <a tuiLink>click to upload</a>
+      </div>
+    </ng-template>
+  </div>
+</tui-input-files>
+
+<tui-files class="tui-space_top-1">
+  <tui-file
+    *ngFor="let file of fileControl?.valueChanges | async"
+    [file]="file"
+    [showDelete]="fileControl.enabled"
+    (removed)="removeFile(file)"
+  ></tui-file>
+
+  <tui-file
+    *ngFor="let file of rejectedFiles"
+    state="error"
+    [file]="file"
+    [showDelete]="fileControl.enabled"
+    (removed)="clearRejected(file)"
+  ></tui-file>
+</tui-files>
+
+<tui-error
+  [error]="[] | tuiFieldError | async"
+  formControlName="file"
+></tui-error>

@@ -1,6 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { filter } from 'rxjs';
 import { UserResponseDto } from 'src/app/features/user/models/dto/user-response.dto';
 import { UserService } from 'src/app/features/user/services/user.service';
 import { PostType } from '../../models/enum/post-type';
@@ -24,19 +23,16 @@ export class MyPostsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this._userService.currentUser
-      .pipe(filter((user) => user !== undefined && user !== null))
-      .subscribe((user) => {
-        this.user = user;
+    this._userService.currentUser.subscribe((user) => {
+      this.user = user;
 
-        this._postService
-          .authorPosts(this.user.user.id!, PostType.USER_PROFILE_POST)
-          .subscribe((data) => {
-            this.currentUserPosts = data;
-            console.log(this.currentUserPosts);
-
-            this._cdr.detectChanges();
-          });
-      });
+      this._postService
+        .authorPosts(this.user.user.id!, PostType.USER_PROFILE_POST)
+        .subscribe((data) => {
+          this.currentUserPosts = data;
+          console.log(this.currentUserPosts);
+          this._cdr.detectChanges();
+        });
+    });
   }
 }

@@ -34,7 +34,7 @@ export class CreatePostComponent implements OnInit {
       }
       console.log(authorId, postType);
       this.createPostForm = this._fb.group({
-        postType: [postType],
+        type: [postType],
         authorId: [authorId],
         content: [null, [Validators.required, Validators.minLength(20)]],
         file: [],
@@ -65,7 +65,17 @@ export class CreatePostComponent implements OnInit {
   }
 
   submitForm() {
+    if (!this.createPostForm.valid) {
+      this._toastr.error('Invalid form');
+      return;
+    }
+    const { authorId, content, type, file } = this.createPostForm.value;
     console.log(this.createPostForm.value);
+
+    this._postService.addPost(authorId, content, type, file).subscribe(() => {
+      this._toastr.success('Post published successfully');
+      this.createPostForm.reset();
+    });
   }
 
   goBack() {

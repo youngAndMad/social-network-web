@@ -9,9 +9,10 @@ import { ALL_TAIGA_UI_MODULES } from '../tui/all-taiga-modules';
 import { CreatePostComponent } from './components/create-post/create-post.component';
 import { MyPostsComponent } from './components/my-posts/my-posts.component';
 import { PostRoutingModule } from './post-routing.module';
+import { PostCardComponent } from './components/post-card/post-card.component';
 
 @NgModule({
-  declarations: [CreatePostComponent, MyPostsComponent],
+  declarations: [CreatePostComponent, MyPostsComponent, PostCardComponent],
   imports: [
     CommonModule,
     ALL_TAIGA_UI_MODULES,
