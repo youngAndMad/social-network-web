@@ -1,10 +1,10 @@
-import { UserSuggestionDto } from './../../models/dto/user-suggestion.dto';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { BehaviorSubject, distinctUntilChanged, of, switchMap } from 'rxjs';
-import { UserService } from '../../services/user.service';
-import { FileService } from 'src/app/features/file/services/file.service';
 import { Router } from '@angular/router';
+import { FileService } from '@file/services/file.service';
+import { UserSuggestionDto } from '@user/models/dto/user-suggestion.dto';
+import { UserService } from '@user/services/user.service';
+import { BehaviorSubject, distinctUntilChanged, of, switchMap } from 'rxjs';
 
 @Component({
   selector: 'sp-user-search-input',

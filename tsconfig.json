@@ -3,6 +3,19 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
+    "paths": {
+      "@env/*": ["src/environments/*"],
+      "@shared/*": ["src/app/shared/*"],
+      "@ui/*": ["src/app/shared/ui/*"],
+      "@user/*": ["src/app/features/user/*"],
+      "@file/*": ["src/app/features/file/*"],
+      "@chat/*": ["src/app/features/chat/*"],
+      "@post/*": ["src/app/features/post/*"],
+      "@qr/*": ["src/app/features/qr/*"],
+      "@news/*": ["src/app/features/news/*"],
+      "@channel/*": ["src/app/features/channel/*"]
+    },
+
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,

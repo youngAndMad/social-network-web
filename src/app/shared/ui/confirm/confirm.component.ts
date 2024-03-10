@@ -1,14 +1,4 @@
-import { PolymorpheusContent } from '@tinkoff/ng-polymorpheus';
-import {
-  Component,
-  EventEmitter,
-  Inject,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
-import { TuiDialogContext, TuiDialogService } from '@taiga-ui/core';
-import { Subscription } from 'rxjs';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'sp-confirm',
