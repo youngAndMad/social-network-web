@@ -1,0 +1,92 @@
+<div class="wrapper">
+  <div class="danekerscode">
+    <div class="left">
+      <ul class="people">
+        <li *ngFor="let chat of chats" class="person">
+          <div
+            class="flex items-center border-b border-gray-200 py-3"
+            (click)="onSelectChat(chat)"
+          >
+            <tui-avatar
+              size="m"
+              [avatarUrl]="imageLink(getSecondMember(chat).id)"
+              fallback="tuiIconUserLarge"
+              new
+              class="mr-3"
+            ></tui-avatar>
+            <div class="flex flex-col flex-grow">
+              <div class="font-bold">{{ getSecondMember(chat).username }}</div>
+              <div class="text-sm text-gray-600">
+                {{ getLastMessage(chat)?.content || "" }}
+              </div>
+            </div>
+            <div class="ml-auto text-sm text-gray-500">
+              {{
+                (getLastMessage(chat)?.sentTime
+                  | date : "dd/MM/yyyy hh:mm a") || ""
+              }}
+            </div>
+            <div class="ml-2">
+              <span
+                class="inline-block h-2 w-2 rounded-full bg-green-500"
+                [ngClass]="{
+                  'inline-block': true,
+                  'h-2': true,
+                  'w-2': true,
+                  'rounded-full': true,
+                  'bg-green-500': isUserOnline(getSecondMember(chat).id),
+                  'bg-red-500': !isUserOnline(getSecondMember(chat).id),
+                }"
+              ></span>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="right" *ngIf="currentChat">
+      <div class="top">
+        <span
+          >To:
+          <span class="name">{{
+            getSecondMember(currentChat).username
+          }}</span></span
+        >
+      </div>
+
+      <div
+        class="chat"
+        *ngIf="
+          currentChat && currentChat.messages && currentChat.messages.length > 0
+        "
+      >
+        <div class="conversation-start">
+          <span>{{
+            "Chat started at: " +
+              (currentChat.createdTime | date : "dd/MM/yyyy hh:mm a")
+          }}</span>
+        </div>
+        <div
+          *ngFor="let message of currentChat.messages"
+          [ngClass]="{
+            bubble: true,
+            me: message.senderId === user.id,
+            you: message.senderId !== user.id
+          }"
+        >
+          {{ message.content }}
+        </div>
+      </div>
+
+      <div class="write">
+        <form [formGroup]="messageForm" #messageFormHTML>
+          <input type="text" [required]="true" formControlName="value" />
+          <a
+            href="javascript:;"
+            class="write-link send"
+            (click)="sendMessage()"
+          ></a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

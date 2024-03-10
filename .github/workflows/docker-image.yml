@@ -2,12 +2,10 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "to_avoid_ci_cd" ]
+    branches: ["to_avoid_ci_cd"]
 
 jobs:
-
   build-and-push:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -17,7 +15,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18.14'
+          node-version: "18.14"
 
       - name: Install dependencies
         run: npm install --legacy-peer-deps
@@ -32,7 +30,7 @@ jobs:
         run: docker build . --file Dockerfile --tag daneker/social-network-web:latest
 
       - name: Tag image
-        run:  docker tag daneker/social-network-web daneker/social-network-web:latest
+        run: docker tag daneker/social-network-web daneker/social-network-web:latest
 
       - name: Log in to Docker Hub
         run: docker login --username ${{ secrets.DOCKER_USERNAME }} --password ${{ secrets.DOCKER_PASSWORD }}

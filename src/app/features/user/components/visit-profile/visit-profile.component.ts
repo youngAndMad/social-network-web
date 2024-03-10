@@ -47,12 +47,10 @@ export class VisitProfileComponent implements OnInit {
         )
         .subscribe((user) => {
           this.user = user;
-          console.log('user', this.user);
         });
     });
     this._userService.currentUser.subscribe((user) => {
       this.currentUser = user;
-      console.log('current user', this.currentUser);
     });
   }
 
@@ -129,6 +127,7 @@ export class VisitProfileComponent implements OnInit {
         );
       });
   }
+
   getRelation(relations: RelationDto[]): RelationDto | undefined {
     return relations.find((relation) => relation.user.id === this.user.id);
   }
