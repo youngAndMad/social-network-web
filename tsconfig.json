@@ -4,9 +4,12 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
+      "@angular/*": ["./node_modules/@angular/*"],
       "@env/*": ["src/environments/*"],
       "@shared/*": ["src/app/shared/*"],
       "@ui/*": ["src/app/shared/ui/*"],
+      "@common/*": ["src/app/common/*"],
+
       "@user/*": ["src/app/features/user/*"],
       "@file/*": ["src/app/features/file/*"],
       "@chat/*": ["src/app/features/chat/*"],

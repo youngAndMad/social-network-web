@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from '@common/guard/kc-auth.guard';
 import { ProfileComponent } from './components/profile/profile.component';
-import { AuthGuard } from 'src/app/common/guard/kc-auth.guard';
 import { UserSearchInputComponent } from './components/user-search-input/user-search-input.component';
 import { VisitProfileComponent } from './components/visit-profile/visit-profile.component';
 
