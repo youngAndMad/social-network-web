@@ -1,13 +1,15 @@
-import { Component, OnInit, Inject, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { UserService } from '../../services/user.service';
-import { User } from '../../models/user';
-import { ToastrService } from 'ngx-toastr';
-import { TuiDialogService, TuiDialogContext } from '@taiga-ui/core';
-import { PolymorpheusContent } from '@tinkoff/ng-polymorpheus';
-import { FileService } from 'src/app/features/file/services/file.service';
-import { Subscription, catchError, of } from 'rxjs';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { TuiDialogContext, TuiDialogService } from '@taiga-ui/core';
+import { PolymorpheusContent } from '@tinkoff/ng-polymorpheus';
+import { ToastrService } from 'ngx-toastr';
+import { Observable, Subscription, catchError, of } from 'rxjs';
+import { FileService } from 'src/app/features/file/services/file.service';
+import { User } from '../../models/user';
+import { UserService } from '../../services/user.service';
+import * as UserStore from '../../store';
 
 @Component({
   selector: 'sp-profile',
@@ -22,6 +24,8 @@ export class ProfileComponent implements OnInit {
   open = false;
   index = 0;
 
+  private user$: Observable<User | null>;
+
   constructor(
     private readonly _fb: FormBuilder,
     private readonly _userService: UserService,
@@ -30,8 +34,11 @@ export class ProfileComponent implements OnInit {
     private readonly _toast: ToastrService,
     @Inject(TuiDialogService) private readonly _dialogs: TuiDialogService,
     private readonly _cdr: ChangeDetectorRef,
-    private readonly _router: Router
-  ) {}
+    private readonly _router: Router,
+    private readonly _store: Store
+  ) {
+    this.user$ = this._store.select(UserStore.selectUser);
+  }
 
   ngOnInit(): void {
     this._userService.me().subscribe((userResponseDto) => {
@@ -39,6 +46,8 @@ export class ProfileComponent implements OnInit {
       this.initializeForm();
       this._cdr.detectChanges();
     });
+
+    this._store.dispatch(UserStore.loadUser());
   }
 
   onClick(): void {
