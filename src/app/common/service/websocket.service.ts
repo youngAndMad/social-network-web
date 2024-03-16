@@ -1,49 +1,47 @@
-import { Injectable  } from '@angular/core';
-declare var SockJS;
-declare var Stomp;
-import { EnvService } from './env.service';
+import { Injectable, OnDestroy } from '@angular/core';
+import { CompatClient, Stomp } from '@stomp/stompjs';
+import { StompSubscription } from '@stomp/stompjs/src/stomp-subscription';
 import { KeycloakService } from 'keycloak-angular';
-import { UserStatusService } from 'src/app/features/chat/services/user-status.service';
+import { EnvService } from './env.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class WebsocketService {
-  private stompClient;
+export class WebsocketService implements OnDestroy {
+  private connection: CompatClient | undefined = undefined;
+  private subscriptions: StompSubscription[] = [];
 
   constructor(
     private readonly _envService: EnvService,
-    private readonly _keycloak: KeycloakService,
-    private readonly _userStatusService: UserStatusService
+    private readonly _keycloak: KeycloakService
   ) {
-  }
-
-  connect() {
-    const ws = new SockJS(this._envService.websocketUrl);
-    this.stompClient = Stomp.over(ws);
-    this.stompClient.connect(this.authHeader(), (fr) => {
-      console.log('successfully ws connection', fr)
-      this._userStatusService.startSession().subscribe(res => {
-        console.log('start user status result' , res)
-      })
-    })
+    this.connection = Stomp.client(this._envService.websocketUrl);
+    this.connection.connect(this.authHeader(), () => {});
   }
 
   send(message: any = {}, destination: string) {
-    this.stompClient.send(destination, this.authHeader(), JSON.stringify(message))
+    if (this.connection && this.connection.connected) {
+      this.connection.send(
+        destination,
+        this.authHeader(),
+        JSON.stringify(message)
+      );
+    } else {
+      console.log('error during ws send. Connection does not established');
+    }
   }
 
   private authHeader() {
     return {
-      'X-Authorization': this._keycloak.getKeycloakInstance().token
-    }
+      'X-Authorization': this._keycloak.getKeycloakInstance().token,
+    };
   }
 
-  subscribe = (
-    channel: string,
-    callback: (event: any) => void,
-    onError: (err: any) => void
-  ) => {
-    this.stompClient.subscribe(channel, callback, onError);
+  subscribe = (channel: string, callback: (event: any) => void) => {
+    this.connection?.subscribe(channel, callback);
+  };
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 }
