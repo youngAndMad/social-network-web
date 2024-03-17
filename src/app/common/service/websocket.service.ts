@@ -1,7 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { CompatClient, Stomp } from '@stomp/stompjs';
 import { StompSubscription } from '@stomp/stompjs/src/stomp-subscription';
-import { KeycloakService } from 'keycloak-angular';
 import { EnvService } from './env.service';
 
 @Injectable({
@@ -11,10 +10,7 @@ export class WebsocketService implements OnDestroy {
   private connection: CompatClient | undefined = undefined;
   private subscriptions: StompSubscription[] = [];
 
-  constructor(
-    private readonly _envService: EnvService,
-    private readonly _keycloak: KeycloakService
-  ) {
+  constructor(private readonly _envService: EnvService) {
     this.connection = Stomp.client(this._envService.websocketUrl);
     this.connection.connect(this.authHeader(), () => {});
   }
@@ -33,7 +29,7 @@ export class WebsocketService implements OnDestroy {
 
   private authHeader() {
     return {
-      'X-Authorization': this._keycloak.getKeycloakInstance().token,
+      'X-Authorization': 'this._keycloak.getKeycloakInstance().token,',
     };
   }
 

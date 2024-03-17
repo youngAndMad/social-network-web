@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'sp-navbar',
@@ -9,13 +8,9 @@ import { KeycloakService } from 'keycloak-angular';
 export class NavbarComponent implements OnInit {
   loggedIn: boolean = false;
 
-  constructor(private readonly _keycloakService: KeycloakService) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    this.loggedIn = this._keycloakService.isLoggedIn();
-  }
+  ngOnInit(): void {}
 
-  loginToKc(){
-    this._keycloakService.login()
-  }
+  loginToKc() {}
 }

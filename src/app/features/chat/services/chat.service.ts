@@ -13,4 +13,8 @@ export class ChatService {
       receiverEmail,
     });
   }
+
+  myChats() {
+    return this._http.get<Chat[]>('/api/v1/chat/my');
+  }
 }

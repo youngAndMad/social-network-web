@@ -1,6 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { ChatService } from '@chat/services/chat.service';
 
 @Component({
   selector: 'sp-chat',
@@ -14,10 +16,31 @@ export class ChatComponent implements OnInit {
   user: any = {};
   messageForm: FormGroup;
 
-  constructor(private readonly _actRoute: ActivatedRoute) {}
+  constructor(
+    private readonly _actRoute: ActivatedRoute,
+    private readonly _chatService: ChatService,
+    private readonly _fb: FormBuilder,
+    private readonly _http: HttpClient
+  ) {
+    this.messageForm = this._fb.group({
+      value: [''],
+    });
+  }
 
   ngOnInit(): void {
+    this._http
+      .get('/api/v1/qr/generate?link=https://t.me/youngAndMad', {
+        responseType: 'blob',
+      })
+      .subscribe(console.log);
     this._actRoute.queryParamMap.subscribe(console.log);
+    // this._chatService.myChats().subscribe((chats) => {
+    //   console.log(
+    //     '🚀 ~ ChatComponent ~ this._chatService.myChats ~ chats:',
+    //     chats
+    //   );
+    //   this.chats = chats;
+    // });
   }
 
   onSelectChat(chat: any) {}

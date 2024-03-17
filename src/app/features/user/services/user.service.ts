@@ -1,12 +1,12 @@
-import { IsExists } from './../models/dto/is-exists.dto';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { User } from '../models/user';
-import { UserSearchCriteria } from '../models/dto/user-search-criteria';
 import { RegistrationDto } from '../models/dto/registration-dto';
-import { UserSuggestionDto } from '../models/dto/user-suggestion.dto';
 import { UserResponseDto } from '../models/dto/user-response.dto';
+import { UserSearchCriteria } from '../models/dto/user-search-criteria';
+import { UserSuggestionDto } from '../models/dto/user-suggestion.dto';
+import { User } from '../models/user';
+import { IsExists } from './../models/dto/is-exists.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +16,7 @@ export class UserService {
     new BehaviorSubject<UserResponseDto>(null!);
 
   constructor(private readonly _http: HttpClient) {
-    this.refreshUserState();
+    // this.refreshUserState();
   }
 
   get currentUser() {

@@ -1,20 +1,16 @@
-import { Injectable } from '@angular/core';
 import {
-  HttpRequest,
-  HttpHandler,
   HttpEvent,
+  HttpHandler,
   HttpInterceptor,
+  HttpRequest,
 } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { EnvService } from '../service/env.service';
-import { KeycloakService } from 'keycloak-angular';
 
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
-  constructor(
-    private readonly _envService: EnvService,
-    private readonly _keycloak: KeycloakService
-  ) {}
+  constructor(private readonly _envService: EnvService) {}
 
   intercept(
     request: HttpRequest<unknown>,
